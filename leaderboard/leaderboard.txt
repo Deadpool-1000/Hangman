@@ -1,0 +1,5 @@
+name,high_score
+fgh,40
+def,28
+ijk,24
+abc,16
