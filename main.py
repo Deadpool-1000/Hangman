@@ -99,11 +99,6 @@ def game_menu():
         print(hanged(6))
         player.menu()
         system('cls')
-
-
-if __name__ == "__main__":
-    with PlayerDAO() as pd:
-        # pass
-        pd.cur.execute('INSERT OR IGNORE INTO auth_table VALUES(?,?,?)', ("admin", "Abcde@2", "admin"))
-        pd.cur.execute('INSERT OR IGNORE INTO players VALUES(?, 0, 0, 0)', ("admin",))
-    game_menu()
+    
+  
+game_menu()
