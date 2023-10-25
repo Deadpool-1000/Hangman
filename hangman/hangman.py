@@ -15,12 +15,12 @@ class Hangman(Game):
     """
     def __init__(self, player):
         super().__init__(player)
-        self.left_chances = 7
-        self.guessed_letters = []
-        self.correctly_guessed = []
-        self.current_letter = None
-        self.current_word = None
-        self.current_description = None
+        self.left_chances: int = 7
+        self.guessed_letters: list[str] = []
+        self.correctly_guessed: list[str] = []
+        self.current_letter: str | None = None
+        self.current_word: str | None = None
+        self.current_description: str | None = None
         self.word_machine = WordMachine()
 
     def get_random_word_and_description(self) -> tuple[str, str]:
@@ -29,7 +29,7 @@ class Hangman(Game):
         description = random_word['hint']
         return word, description
 
-    def reset_game(self):
+    def reset_game(self) -> None:
         self.left_chances = 7
         self.guessed_letters.clear()
         self.correctly_guessed.clear()
@@ -37,8 +37,8 @@ class Hangman(Game):
         self.current_letter = None
         self.current_description = None
 
-    def start_game(self):
-        rounds = 1
+    def start_game(self) -> None:
+        rounds = 2
         print("\n\n")
         print(f"Welcome to game {self.player.name}")
         try:
@@ -105,7 +105,11 @@ class Hangman(Game):
         return user_input
 
     def update_scores(self, score) -> None:
-        logger.debug(self.player)
+        """
+        Stores the score of the current round in players->score list
+        :param score:
+        :return: None
+        """
         self.player.scores.append(score)
 
     def results(self, score: int, game_round: int) -> None:

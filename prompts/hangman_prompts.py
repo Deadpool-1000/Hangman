@@ -27,4 +27,4 @@ Your password must contain:
 1. Minimum eight characters, 
 2. at least one uppercase letter
 3. one lowercase letter and one number
-"""
+New Password: """

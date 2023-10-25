@@ -8,12 +8,16 @@ from DB.PlayerDAO import PlayerDAO
 from DB.PlayerDAO import AlreadyExistsError
 from DB.PlayerDAO import InvalidUsernameOrPasswordError
 from os import system
+from config.config import Config
 from hangman.graphic import hanged
-# from rich import console
 
-logging.basicConfig(format = "%(asctime)s %(levelname)-8s [%(filename)s:%(lineno)d] %(message)s",
-                    datefmt = "%d-%M-%Y %H:%M:%S", level = logging.DEBUG, filename='logs.log')
+# Logging configuration
+logging.basicConfig(format="%(asctime)s %(levelname)-8s [%(filename)s:%(lineno)d] %(message)s",
+                    datefmt="%d-%M-%Y %H:%M:%S", level=logging.DEBUG, filename='logs.log')
 logger = logging.getLogger("main")
+
+# Configurations for the application
+Config.load()
 
 
 # separate module for exception
@@ -31,15 +35,15 @@ def login() -> Player | None:
     password = input("Password: ").strip()
     # uname, password = sanitize_input(uname, password)
     try:
-        with PlayerDAO() as pd:
-            player_tuple = pd.login(uname, password)
+        with PlayerDAO() as p_dao:
+            player_tuple = p_dao.login(uname, password)
     except InvalidUsernameOrPasswordError:
         return None
     logger.debug(f'{player_tuple}')
     if player_tuple[1] == 'admin':
-        return Admin(name=player_tuple[0])
+        return Admin(name=player_tuple.name, high_score=player_tuple.high_score)
     else:
-        new_player = Player(name=player_tuple[0], role='player')
+        new_player = Player(name=player_tuple.name, role='player', high_score=player_tuple.high_score)
         logger.info(f"Login with {new_player}")
         return new_player
 
@@ -52,10 +56,10 @@ def signup() -> Player | None:
     if not is_password_safe(password):
         print("Please choose a safe password: ")
         while not is_password_safe(password):
-            password = input(HangmanPrompts.SECURE_PASSWORD_PROMPT)
+            password = input(Config.SECURE_PASSWORD_PROMPT)
     try:
-        with PlayerDAO() as pd:
-            pd.signup(uname=uname, password=password)
+        with PlayerDAO() as p_dao:
+            p_dao.signup(uname=uname, password=password)
     except AlreadyExistsError as ae:
         print(ae)
         return None
@@ -74,7 +78,7 @@ def is_password_safe(password):
     """
     Your password must contain:
     1. Minimum eight characters,
-    2. at least one uppercase letter
+    2. at least one uppercase letter,
     3. one lowercase letter and one number
     :param password:
     :return: bool
@@ -85,14 +89,18 @@ def is_password_safe(password):
     return True
 
 
-def game_menu():
-    m = menu(HangmanPrompts.MAIN_PROMPT, allowed=['l', 's'])
+def game_menu() -> None:
+    """
+    Entry point for the application. Displays main menu of the game and calls appropriate function
+    :return: None
+    """
+    m = menu(Config.MAIN_PROMPT, allowed=['l', 's'])
     for game_choice in m:
         game_function = game_functions.get(game_choice)
         system('cls')
         player: Admin | Player | None = game_function()
         if player is None:
-            print("Please try again")
+            print("\nPlease try again")
             continue
         system('cls')
         print("Welcome to Hangman ")
@@ -102,8 +110,10 @@ def game_menu():
 
 
 if __name__ == "__main__":
-    with PlayerDAO() as pd:
-        # pass
-        pd.cur.execute('INSERT OR IGNORE INTO auth_table VALUES(?,?,?)', ("admin", "Abcde@2", "admin"))
-        pd.cur.execute('INSERT OR IGNORE INTO players VALUES(?, 0, 0, 0)', ("admin",))
+    """
+     with PlayerDAO() as pd:
+        pd.cur.execute("INSERT INTO auth_table VALUES(?, ?, ?)", ("admin", "Abcde@2", "admin"))
+        pd.cur.execute("INSERT INTO players VALUES(?,?,?,?,?)", ("admin", 0.0, 0, 0, datetime.now()))
+    """
     game_menu()
+

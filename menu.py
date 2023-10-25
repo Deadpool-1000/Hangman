@@ -1,5 +1,5 @@
 
-def menu(prompt, allowed: list[str]) -> str:
+def menu(prompt: str, allowed: list[str]) -> str:
     """
     generator for menu that renders menu prompt provide repetitively and provides some basic input validation
     :yield str (user choice: a single character)

@@ -9,11 +9,12 @@ class Game:
         self.player = player
 
     def declare_results(self) -> None:
-        print("\n", end="")
-        print("---------------------------------------------------")
-        if sum(self.player.scores) > 0:
+        print("\n---------------------------------------------------")
+        final_score: float = self.player.final_score
+        if final_score > 0:
             print("🎊🎊🎊🎊🎊🎊🎊🎊🎊🎊🎊🎊🎊🎊🎊🎊🎊🎊🎊🎊🎊")
-            print(f"Your final Score is {sum(self.player.scores)}")
+            print(f"Your final Score is {final_score:.2f}")
         else:
             print("😔😔😔😔😔😔😔😔😔😔😔😔😔😔😔😔😔😔😔😔😔")
             print("You scored 0 points")
+        print("---------------------------------------------------")
