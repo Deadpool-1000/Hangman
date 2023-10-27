@@ -1,10 +1,9 @@
 import logging
 from player.player import Player
-from menu import menu
-from prompts.hangman_prompts import HangmanPrompts
-from hangman.hangman import Hangman
+from utils.utils import menu
 from typing import Callable
 from config.config import Config
+from word_section.words import WordMachine
 logger = logging.getLogger('main.admin')
 
 
@@ -13,30 +12,28 @@ class Admin(Player):
         Admin of the game.
         Has all the features the player has and can add or remove the words and get the list of existing users
     """
-    def __init__(self, name, high_score) -> None:
-        super().__init__(name=name, role="admin", high_score=high_score)
+    def __init__(self, name: str, high_score: float, total_games_played: int, total_games_won: int, highscore_created_on: str) -> None:
+        super().__init__(name=name, role="admin",
+                         high_score=high_score,
+                         highscore_created_on=highscore_created_on,
+                         total_games_played=total_games_played,
+                         total_games_won=total_games_won
+        )
         logger.info("Admin logged in")
 
     def menu(self) -> None:
         admin_functionalities: {str: Callable} = {
             'l': self.display_leaderboard,
             'w': self.word_section,
-            'p': self.game_section,
+            'p': self.start_new_game,
+            's': self.my_stats
         }
-        m = menu(prompt=Config.ADMIN_PROMPT, allowed=['l', 'w', 'p'])
+        m = menu(prompt=Config.ADMIN_PROMPT, allowed=['l', 'w', 'p', 's'])
         for admin_choice in m:
             admin_function = admin_functionalities.get(admin_choice)
             admin_function()
 
     @staticmethod
     def word_section():
-        print("Word Section")
-        pass
-
-    def game_section(self):
-        h = Hangman(self)
-        h.start_game()
-
-    @staticmethod
-    def modify_game_settings():
-        pass
+        word_section = WordMachine()
+        word_section.menu()

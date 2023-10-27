@@ -1,12 +1,16 @@
 import logging
-# from player.player import Player
-import os
+from typing import TYPE_CHECKING
+from os import system
+if TYPE_CHECKING:
+    from player.player import Player
+
+
 logger = logging.getLogger("main.game")
 
 
-class Game:
+class BaseGame:
     def __init__(self, player) -> None:
-        self.player = player
+        self.player: Player = player
 
     def declare_results(self) -> None:
         print("\n---------------------------------------------------")
@@ -18,3 +22,10 @@ class Game:
             print("😔😔😔😔😔😔😔😔😔😔😔😔😔😔😔😔😔😔😔😔😔")
             print("You scored 0 points")
         print("---------------------------------------------------")
+
+    def exit_game(self, rounds_played: int, rounds_won):
+        print("Thank You for playing")
+        self.player.update_stats(rounds_played, rounds_won)
+
+    def calculate_rounds_won(self):
+        return self.player.calculate_rounds_won()

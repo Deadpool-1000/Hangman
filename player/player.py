@@ -1,10 +1,12 @@
 import logging
+from os import system
+from typing import Callable
 from player.user import User
 from hangman.hangman import Hangman
-from menu import menu
-from typing import Callable
-from DB.PlayerDAO import PlayerDAO
+from db.PlayerDAO import PlayerDAO
 from config.config import Config
+from utils.utils import menu, format_date, input_number_of_rounds, input_difficulty_level
+from leaderboard.leaderboard import Leaderboard
 
 logger = logging.getLogger('main.player')
 
@@ -14,12 +16,15 @@ class Player(User):
         A class that represents player of the game
     """
 
-    def __init__(self, name: str, role: str, high_score: float):
+    def __init__(self, name: str, role: str, high_score: float, total_games_played: int, total_games_won: int, highscore_created_on: str):
         super().__init__(name, role)
         logger.debug(f"Player {name} created")
         self.scores: list[int] = []
         self.all_time_high_score: float = high_score
         self.total_wins: int = 0
+        self.total_games_won = total_games_won
+        self.total_games_played = total_games_played
+        self.highscore_created_on = highscore_created_on
 
     def __repr__(self) -> str:
         return f"<Player {self.name} Scores:{self.scores} Wins:{self.total_wins} />"
@@ -28,19 +33,25 @@ class Player(User):
         user_operation: {str: Callable} = {
             'p': self.start_new_game,
             'l': self.display_leaderboard,
+            's': self.my_stats
         }
-        m = menu(prompt=Config.PLAYER_PROMPT, allowed=['p', 'l'])
+        m = menu(prompt=Config.PLAYER_PROMPT, allowed=['p', 'l', 's'])
         for game_choice in m:
             user_function = user_operation.get(game_choice)
             user_function()
             print("---------------------------------------------------")
 
     def start_new_game(self):
-        hg = Hangman(self)
+        system('cls')
+        num_of_rounds = input_number_of_rounds()
+        difficulty = input_difficulty_level()
+        hg = Hangman(player=self, num_of_rounds=num_of_rounds, difficulty=difficulty)
         hg.start_game()
 
-    def display_leaderboard(self):
-        pass
+    @staticmethod
+    def display_leaderboard():
+        leader_board = Leaderboard()
+        leader_board.show_leaderboard()
 
     @property
     def final_score(self) -> float:
@@ -62,3 +73,19 @@ class Player(User):
         with PlayerDAO() as pd:
             pd.update_high_score(self.name, new_high_score)
 
+    def my_stats(self):
+        system('cls')
+        print(f"-------------------------{self.name}-------------------------")
+        print("Total Games played: ", self.total_games_played)
+        print("Total Games won: ", self.total_games_won)
+        print(f'Your HighScore: {self.all_time_high_score} Created on: {format_date(self.highscore_created_on)}')
+        print(f'-------------------------{"-"*len(self.name)}-------------------------')
+
+    def update_stats(self, rounds_played, rounds_won):
+        self.total_games_won += rounds_won
+        self.total_games_played += rounds_played
+        with PlayerDAO() as p_dao:
+            p_dao.update_player_stats(self.total_games_played, self.total_games_won, self.name)
+
+    def calculate_rounds_won(self):
+        return len([i for i in self.scores if i > 0])
