@@ -1,23 +1,21 @@
 import sqlite3
-from config.config import Config
-
-CREATE_TABLE_QUERY = "CREATE TABLE IF NOT EXISTS game_config(config_id INTEGER PRIMARY KEY AUTOINCREMENT, config_name TEXT, config_key TEXT, config_value INTEGER)"
-GAME_CONFIG_QUERY = "SELECT * FROM game_config WHERE config_name=?"
+from config.prompt import PromptConfig
+from config.queries_config import QueriesConfig
 
 
 class GameConfigDAO:
     singleton = 1
 
     def __init__(self):
-        self.connection = sqlite3.connect(Config.DBPATH)
+        self.connection = sqlite3.connect(PromptConfig.DBPATH)
         self.cur = self.connection.cursor()
         if self.singleton != 1:
-            self.cur.execute(CREATE_TABLE_QUERY)
+            self.cur.execute(QueriesConfig.CREATE_TABLE_QUERY)
             self.connection.commit()
             self.singleton -= 1
 
     def get_game_params(self, param):
-        rws = self.cur.execute(GAME_CONFIG_QUERY, (param,))
+        rws = self.cur.execute(QueriesConfig.GAME_CONFIG_QUERY, (param,))
         return [row[3] for row in rws.fetchall()]
 
     def get_round_options(self):

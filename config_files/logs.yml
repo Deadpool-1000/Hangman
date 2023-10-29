@@ -1,0 +1,4 @@
+ALREADY_EXIST_LOG : Player with same username already exists
+INVALID_USERNAME_OR_PASSWORD : Invalid Username or password
+OUT_OF_WORDS_ERROR_LOG : Sorry, Please try again later
+PLAYER_RESULT_DEBUG : "{} scored {}"

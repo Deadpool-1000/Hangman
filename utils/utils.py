@@ -2,26 +2,12 @@ import re
 import maskpass
 from datetime import datetime
 from db.GameConfigDAO import GameConfigDAO
-from config.config import Config
-
-
-INPUT_USERNAME_PROMPT = "Username: "
-INPUT_PASSWORD_PROMPT = "Password: "
-EMPTY_UNAME_FOUND = "Username can't be empty"
-EMPTY_PASSWORD_FOUND = "Password can't be empty"
-INPUT_ROUND_PROMPT = "How many rounds do you want to play ?: "
-INPUT_DIFFICULTY_PROMPT = """
-'e': easy
-'m': medium,
-'d': difficult
-"""
-VALID_INPUT = "Please enter a valid input: "
-YOUR_CHOICE = "Your Choice: "
-SAFE_PASSWORD_PROMPT = "Please choose a safe password: "
+from config.prompt import PromptConfig
+from config.utils_config import UtilsConfig
 
 
 def format_date(date):
-    date = datetime.strptime(date,'%Y-%m-%d %H:%M:%S.%f')
+    date = datetime.strptime(date, '%Y-%m-%d %H:%M:%S.%f')
     return f"{date.day}/{date.month}/{date.year} at {date.hour}:{date.minute}"
 
 
@@ -34,7 +20,7 @@ def menu(prompt: str, allowed: list[str]) -> str:
     while user_choice != 'q':
         if user_choice not in allowed:
             while user_choice not in allowed and user_choice != 'q':
-                user_choice = input(VALID_INPUT)
+                user_choice = input(UtilsConfig.VALID_INPUT)
             if user_choice == 'q':
                 continue
         yield user_choice
@@ -43,13 +29,13 @@ def menu(prompt: str, allowed: list[str]) -> str:
 
 def input_uname_and_password(prompt: str) -> (str, str):
     print(prompt)
-    uname = input(INPUT_USERNAME_PROMPT).strip()
-    password = maskpass.advpass(INPUT_PASSWORD_PROMPT).strip()
+    uname = input(UtilsConfig.INPUT_USERNAME_PROMPT).strip()
+    password = maskpass.advpass(UtilsConfig.INPUT_PASSWORD_PROMPT).strip()
 
     while len(uname) == 0:
-        uname = input(EMPTY_UNAME_FOUND).strip()
+        uname = input(UtilsConfig.EMPTY_UNAME_FOUND).strip()
     while len(password) == 0:
-        password = input(EMPTY_PASSWORD_FOUND).strip()
+        password = input(UtilsConfig.EMPTY_PASSWORD_FOUND).strip()
 
     return uname, password
 
@@ -73,15 +59,15 @@ def input_game_params(prompt: str, params: list[int]):
     print(prompt)
     print("\t|\t".join([str(round_) for round_ in params]))
     params = [str(num) for num in params]
-    user_choice = input(YOUR_CHOICE)
+    user_choice = input(UtilsConfig.YOUR_CHOICE)
     while user_choice not in params:
-        user_choice = input(VALID_INPUT)
+        user_choice = input(UtilsConfig.VALID_INPUT)
     return int(user_choice)
 
 
 def input_number_of_rounds() -> int:
     round_options = get_available_round_options()
-    return input_game_params(INPUT_ROUND_PROMPT, round_options)
+    return input_game_params(UtilsConfig.INPUT_ROUND_PROMPT, round_options)
 
 
 def get_available_round_options() -> list[int]:
@@ -92,9 +78,9 @@ def get_available_round_options() -> list[int]:
 
 def validate_password(password):
     if not is_password_safe(password):
-        print(SAFE_PASSWORD_PROMPT)
+        print(PromptConfig.SECURE_PASSWORD_PROMPT)
         while not is_password_safe(password):
-            password = maskpass.advpass(Config.SECURE_PASSWORD_PROMPT)
+            password = maskpass.advpass(UtilsConfig.SAFE_PASSWORD_PROMPT)
     return password
 
 
@@ -111,8 +97,8 @@ def input_difficulty_level():
         'm': diff_options[1],
         'd': diff_options[2]
     }
-    user_choice = input(INPUT_DIFFICULTY_PROMPT)
+    user_choice = input(PromptConfig.INPUT_DIFFICULTY_PROMPT)
     while user_choice not in available.keys():
-        user_choice = input(VALID_INPUT)
+        user_choice = input(UtilsConfig.VALID_INPUT)
 
     return available.get(user_choice)

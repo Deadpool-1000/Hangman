@@ -1,14 +1,12 @@
-import logging
 from os import system
 from typing import Callable
 from player.user import User
 from hangman.hangman import Hangman
 from db.PlayerDAO import PlayerDAO
-from config.config import Config
+from config.prompt import PromptConfig
+from config.user_config import UserConfig
 from utils.utils import menu, format_date, input_number_of_rounds, input_difficulty_level
 from leaderboard.leaderboard import Leaderboard
-
-logger = logging.getLogger('main.player')
 
 
 class Player(User):
@@ -18,7 +16,6 @@ class Player(User):
 
     def __init__(self, name: str, role: str, high_score: float, total_games_played: int, total_games_won: int, highscore_created_on: str):
         super().__init__(name, role)
-        logger.debug(f"Player {name} created")
         self.scores: list[int] = []
         self.all_time_high_score: float = high_score
         self.total_wins: int = 0
@@ -27,7 +24,7 @@ class Player(User):
         self.highscore_created_on = highscore_created_on
 
     def __repr__(self) -> str:
-        return f"<Player {self.name} Scores:{self.scores} Wins:{self.total_wins} />"
+        return UserConfig.PLAYER_REPR.format(self.name, self.scores, self.total_wins)
 
     def menu(self):
         user_operation: {str: Callable} = {
@@ -35,7 +32,7 @@ class Player(User):
             'l': self.display_leaderboard,
             's': self.my_stats
         }
-        m = menu(prompt=Config.PLAYER_PROMPT, allowed=['p', 'l', 's'])
+        m = menu(prompt=PromptConfig.PLAYER_PROMPT, allowed=['p', 'l', 's'])
         for game_choice in m:
             user_function = user_operation.get(game_choice)
             user_function()
@@ -61,7 +58,7 @@ class Player(User):
         """
         current_score: float = sum(self.scores) / len(self.scores)
         if self._is_high_score(current_score):
-            print("Congratulations you just made a high score")
+            print(UserConfig.HIGH_SCORE_MESSAGE)
             self.all_time_high_score = current_score
             self._update_high_score(self.all_time_high_score)
         return current_score

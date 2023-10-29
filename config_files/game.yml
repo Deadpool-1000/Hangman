@@ -1,0 +1,10 @@
+SUCCESSFUL_SIGNUP : |
+  Successfully signed up 
+
+WELCOME_TO_HANGMAN : Welcome to Hangman
+TRY_AGAIN : |
+  Please try again
+
+SIGNUP_PROMPT : "For Signup, Please enter the following details: "
+LOGIN_PROMPT : "For Login please enter the following details: "
+MAIN_MESSAGE : Hey there

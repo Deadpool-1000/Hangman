@@ -6,6 +6,9 @@ if TYPE_CHECKING:
 
 
 logger = logging.getLogger("main.game")
+FINAL_RESULTS = "Your final Score is {0:.2f}"
+THANKS_MESSAGE = "Thank You for playing"
+SCORED_0_POINTS = "Thank You for playing"
 
 
 class BaseGame:
@@ -17,14 +20,14 @@ class BaseGame:
         final_score: float = self.player.final_score
         if final_score > 0:
             print("🎊🎊🎊🎊🎊🎊🎊🎊🎊🎊🎊🎊🎊🎊🎊🎊🎊🎊🎊🎊🎊")
-            print(f"Your final Score is {final_score:.2f}")
+            print(FINAL_RESULTS.format(final_score))
         else:
             print("😔😔😔😔😔😔😔😔😔😔😔😔😔😔😔😔😔😔😔😔😔")
-            print("You scored 0 points")
+            print(SCORED_0_POINTS)
         print("---------------------------------------------------")
 
     def exit_game(self, rounds_played: int, rounds_won):
-        print("Thank You for playing")
+        print(THANKS_MESSAGE)
         self.player.update_stats(rounds_played, rounds_won)
 
     def calculate_rounds_won(self):
