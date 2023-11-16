@@ -18,5 +18,3 @@ def entry_point(f):
 @load_config
 def main():
     Game.start_menu()
-
-
