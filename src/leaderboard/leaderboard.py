@@ -23,8 +23,12 @@ class Leaderboard:
         print(LeaderBoardConfig.TOP_MESSAGE)
         print("\n---------------------------------------------------")
         print(LeaderBoardConfig.TABLE_HEADER)
-        for player_ in self.leaderboard:
-            print(f'{player_.uname:20}{str(player_.high_score):20}{format_date(player_.scored_on):20}')
-            print()
-        print("---------------------------------------------------")
+        try:
+            for player_ in self.leaderboard:
+                print(f'{player_.uname:20}{str(player_.high_score):20}{format_date(player_.scored_on):20}')
+                print()
+            print("---------------------------------------------------")
+        except ValueError as err:
+            print(err.args[0])
+            return
 

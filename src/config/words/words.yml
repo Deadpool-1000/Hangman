@@ -26,3 +26,4 @@ ALL_WORDS_MENU_PROMPT : |
   'q': back
   Your choice:
 INVALID_INPUT : "Invalid input try again: "
+UPDATE_WORD_MAIN_PROMPT : "Please enter the following details to update a word"

@@ -1,2 +1,9 @@
+import pytest
+from src.word_section.words import Words
+
+
 class TestWordSection:
-    pass
+    def __init__(self):
+        self.words_section = Words()
+
+

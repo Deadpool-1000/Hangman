@@ -26,6 +26,7 @@ class WordsConfig:
     END_OF_WORDS = None
     ALL_WORDS_MENU_PROMPT = None
     INVALID_INPUT = None
+    UPDATE_WORD_MAIN_PROMPT = None
 
     @classmethod
     def load(cls):
@@ -54,3 +55,4 @@ class WordsConfig:
             cls.END_OF_WORDS = data['END_OF_WORDS']
             cls.ALL_WORDS_MENU_PROMPT = data['ALL_WORDS_MENU_PROMPT']
             cls.INVALID_INPUT = data['INVALID_INPUT']
+            cls.UPDATE_WORD_MAIN_PROMPT = data['UPDATE_WORD_MAIN_PROMPT']

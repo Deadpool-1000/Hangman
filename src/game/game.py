@@ -1,3 +1,5 @@
+import sqlite3
+import logging
 from os import system
 from src.player.admin import Admin
 from src.player.player import Player
@@ -7,6 +9,8 @@ from src.db.players.PlayerDAO import PlayerDAO
 from src.utils.utils import input_uname_and_password, validate_password, menu
 from src.config.prompts.prompts_config import PromptConfig
 from src.config.game.game_config import GameConfig
+
+logger = logging.getLogger('main.mygame')
 
 
 class Game:
@@ -46,6 +50,14 @@ class Game:
             system('cls')
             print(e)
             return None
+        except sqlite3.ProgrammingError as err:
+            logger.error(f'Database Programming error {err.sqlite_errorname}')
+            print('There was some problem 😔')
+            return None
+        except sqlite3.Error as err:
+            logger.error(f'Database error {err.sqlite_errorname}')
+            print('There was some problem 😔')
+            return None
 
         if player_tuple.role == 'admin':
             return Admin(
@@ -74,6 +86,10 @@ class Game:
         except AlreadyExistsError as ae:
             system('cls')
             print(ae)
+            return None
+        except sqlite3.Error as err:
+            logger.error('Database error' , err)
+            print('There was some problem, please try again')
             return None
         system('cls')
         print(GameConfig.SUCCESSFUL_SIGNUP)

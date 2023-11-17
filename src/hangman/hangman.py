@@ -1,7 +1,7 @@
 import logging
 from src.hangman.basegame import BaseGame
 from src.hangman.graphic import hanged
-from src.word_section.words import Word
+from src.word_section.words import Words
 from src.word_section.words import OutOfWordsError
 from src.config.hangman.hangman_config import HangmanConfig
 from src.config.logs.logs_config import LogsConfig
@@ -29,7 +29,7 @@ class Hangman(BaseGame):
         self.current_word: str | None = None
         self.current_description: str | None = None
         self.difficulty = difficulty
-        self.word_machine = Word()
+        self.word_machine = Words()
 
     def get_random_word_and_description(self) -> tuple[str, str]:
         random_word: dict = self.word_machine.get_random_word(self.difficulty)

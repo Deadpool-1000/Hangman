@@ -1,6 +1,7 @@
 from os import system
 from typing import Iterable
 from src.config.words.words_config import WordsConfig
+from src.utils.utils import get_good_input
 
 
 def print_words(words: list[{str: str}]):
@@ -67,3 +68,24 @@ def simple_prompt(prompt, allowed: Iterable) -> str:
         user_choice = input(WordsConfig.INVALID_INPUT).strip().lower()
 
     return user_choice
+
+
+def input_new_word() -> (str, str, str):
+    system('cls')
+    print(WordsConfig.INPUT_WORD_MAIN_PROMPT)
+
+    word = get_good_input(WordsConfig.INPUT_NEW_WORD_PROMPT, WordsConfig.EMPTY_NEW_WORD)
+    definition = get_good_input(WordsConfig.INPUT_NEW_WORD_DEFINITION, WordsConfig.EMPTY_NEW_WORD_DEFINITION)
+    source = get_good_input(WordsConfig.INPUT_NEW_WORD_SOURCE, WordsConfig.EMPTY_NEW_WORD_SOURCE)
+
+    return word, definition, source
+
+
+def input_word_and_new_definition():
+    system('cls')
+    print(WordsConfig.UPDATE_WORD_MAIN_PROMPT)
+
+    word = get_good_input(WordsConfig.UPDATE_WORD, WordsConfig.UPDATE_WORD_EMPTY)
+    definition = get_good_input(WordsConfig.UPDATE_NEW_DEFINITION, WordsConfig.UPDATE_DEFINITION_EMPTY)
+
+    return word, definition

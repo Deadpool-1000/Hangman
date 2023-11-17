@@ -6,9 +6,22 @@ from src.config.prompts.prompts_config import PromptConfig
 from src.config.utils.utils_config import UtilsConfig
 
 
+def get_good_input(main_prompt: str, empty_prompt: str):
+    user_input = input(main_prompt).strip()
+
+    while len(user_input) == 0:
+        user_input = input(empty_prompt).strip()
+
+    return user_input
+
+
 def format_date(date):
-    date = datetime.strptime(date, '%Y-%m-%d %H:%M:%S.%f')
-    return f"{date.day}/{date.month}/{date.year} at {date.hour}:{date.minute}"
+    try:
+        date = datetime.strptime(date, '%Y-%m-%d %H:%M:%S.%f')
+    except ValueError:
+        raise ValueError('There was some problem please try again later')
+    else:
+        return f"{date.day}/{date.month}/{date.year} at {date.hour}:{date.minute}"
 
 
 def menu(prompt: str, allowed: list[str]) -> str:
@@ -29,13 +42,8 @@ def menu(prompt: str, allowed: list[str]) -> str:
 
 def input_uname_and_password(prompt: str) -> (str, str):
     print(prompt)
-    uname = input(UtilsConfig.INPUT_USERNAME_PROMPT).strip()
-    password = maskpass.advpass(UtilsConfig.INPUT_PASSWORD_PROMPT).strip()
-
-    while len(uname) == 0:
-        uname = input(UtilsConfig.EMPTY_UNAME_FOUND).strip()
-    while len(password) == 0:
-        password = input(UtilsConfig.EMPTY_PASSWORD_FOUND).strip()
+    uname = get_good_input(UtilsConfig.INPUT_USERNAME_PROMPT, UtilsConfig.EMPTY_UNAME_FOUND)
+    password = get_good_input(UtilsConfig.INPUT_PASSWORD_PROMPT, UtilsConfig.EMPTY_PASSWORD_FOUND)
 
     return uname, password
 
@@ -56,12 +64,15 @@ def is_password_safe(password):
 
 
 def input_game_params(prompt: str, params: list[int]):
-    print(prompt)
-    print("\t|\t".join([str(round_) for round_ in params]))
+    rounds_prompt = "\t|\t".join([str(round_) for round_ in params])
+    main_prompt = f'{prompt}\n{rounds_prompt}'
+    print(main_prompt)
     params = [str(num) for num in params]
+
     user_choice = input(UtilsConfig.YOUR_CHOICE)
     while user_choice not in params:
         user_choice = input(UtilsConfig.VALID_INPUT)
+
     return int(user_choice)
 
 

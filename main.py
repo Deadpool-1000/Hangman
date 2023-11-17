@@ -17,4 +17,6 @@ def entry_point(f):
 @entry_point
 @load_config
 def main():
+    logger.info('Game Started')
     Game.start_menu()
+    logger.info('Game Ended')

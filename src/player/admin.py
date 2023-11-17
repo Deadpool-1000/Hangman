@@ -2,7 +2,7 @@ from src.player.player import Player
 from src.utils.utils import menu
 from typing import Callable
 from src.config.prompts.prompts_config import PromptConfig
-from src.word_section.words import Word
+from src.word_section.words import Words
 
 
 class Admin(Player):
@@ -33,5 +33,5 @@ class Admin(Player):
 
     @staticmethod
     def word_section():
-        word_section = Word()
+        word_section = Words()
         word_section.menu()

@@ -5,10 +5,10 @@ from src.utils.utils import menu
 from src.utils.exception import OutOfWordsError
 from src.config.prompts.prompts_config import PromptConfig
 from src.config.words.words_config import WordsConfig
-from src.utils.words_util import words_menu
+from src.utils.words_util import words_menu, input_new_word, input_word_and_new_definition
 
 
-class Word:
+class Words:
     """
         A class that is used for retrieving words from database
     """
@@ -71,29 +71,20 @@ class Word:
             functionalities_prompt=WordsConfig.ALL_WORDS_MENU_PROMPT
         )
 
-    @staticmethod
-    def _input_word_and_new_definition():
-        word = input(WordsConfig.UPDATE_WORD).strip()
-        definition = input(WordsConfig.UPDATE_NEW_DEFINITION).strip()
-        while len(word) == 0:
-            word = input(WordsConfig.UPDATE_WORD_EMPTY).strip()
-        while len(definition) == 0:
-            definition = input(WordsConfig.UPDATE_DEFINITION_EMPTY).strip()
-        return word, definition
-
     def add_new_word(self):
         system('cls')
-        word, definition, source = self._input_new_word()
+        word, definition, source = input_new_word()
         with open(WordsConfig.WORDS_FILE_PATH, 'a') as f:
             f.write(f'{word}|noun|{definition}|{source}\n')
 
         print(WordsConfig.SUCCESS_ADD.format(word))
+
         # Load new contents
         self.read_words()
 
     def update_word(self):
         system('cls')
-        new_word, new_definition = self._input_word_and_new_definition()
+        new_word, new_definition = input_word_and_new_definition()
         contents = []
         flag = 0
         with open(WordsConfig.WORDS_FILE_PATH, 'r') as f:
@@ -142,22 +133,3 @@ class Word:
 
         print(WordsConfig.SUCCESS_DELETE.format(word))
         self.read_words()
-
-    @staticmethod
-    def _input_new_word() -> (str, str, str):
-        system('cls')
-        print(WordsConfig.INPUT_WORD_MAIN_PROMPT)
-        word = input(WordsConfig.INPUT_NEW_WORD_PROMPT).strip()
-        definition = input(WordsConfig.INPUT_NEW_WORD_DEFINITION).strip()
-        source = input(WordsConfig.INPUT_NEW_WORD_SOURCE).strip()
-
-        while len(word) == 0:
-            word = input(WordsConfig.EMPTY_NEW_WORD)
-
-        while len(definition) == 0:
-            definition = input(WordsConfig.EMPTY_NEW_WORD_DEFINITION)
-
-        while len(source) == 0:
-            source = input(WordsConfig.EMPTY_NEW_WORD_SOURCE)
-
-        return word, definition, source
