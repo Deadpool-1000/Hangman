@@ -21,7 +21,7 @@ def words_menu(words, main_prompt, functionalities_prompt, continue_prompt, func
         did_quit = False
 
         for my_words in words_generator:
-            print_words(my_words) # first five words
+            print_words(my_words)
             user_choice = simple_prompt(functionalities_prompt, [*functionalities.keys(), 'n', 'q'])
             if user_choice == 'n':
                 system('cls')
@@ -49,11 +49,11 @@ def view_list_generator(lst):
     page = 1
     counter = 0
     data = []
-    while i < length and counter < 5:
+    while i < length:
         data.append(lst[i])
         counter += 1
         i += 1
-        if counter > 3 or i == length:
+        if counter > 2 or i == length:
             print(f'------Page: {page}------')
             page += 1
             yield data

@@ -1,4 +1,6 @@
 import re
+import sqlite3
+
 import maskpass
 from datetime import datetime
 from src.db.game_config.GameConfigDAO import GameConfigDAO
@@ -15,6 +17,7 @@ def get_good_input(main_prompt: str, empty_prompt: str):
     return user_input
 
 
+# format_date(2023)
 def format_date(date):
     try:
         date = datetime.strptime(date, '%Y-%m-%d %H:%M:%S.%f')
@@ -63,8 +66,8 @@ def is_password_safe(password):
     return True
 
 
-def input_game_params(prompt: str, params: list[int]):
-    rounds_prompt = "\t|\t".join([str(round_) for round_ in params])
+def input_game_params(prompt: str, params: list[sqlite3.Cursor]):
+    rounds_prompt = "\t|\t".join([str(round_) for round_ in list(params)])
     main_prompt = f'{prompt}\n{rounds_prompt}'
     print(main_prompt)
     params = [str(num) for num in params]
@@ -81,9 +84,9 @@ def input_number_of_rounds() -> int:
     return input_game_params(UtilsConfig.INPUT_ROUND_PROMPT, round_options)
 
 
-def get_available_round_options() -> list[int]:
+def get_available_round_options() -> list[sqlite3.Cursor]:
     with GameConfigDAO() as g_dao:
-        round_options: list[int] = g_dao.get_round_options()
+        round_options: list[sqlite3.Cursor] = g_dao.get_round_options()
     return round_options
 
 
@@ -95,9 +98,9 @@ def validate_password(password):
     return password
 
 
-def get_available_difficulty_options() -> list[int]:
+def get_available_difficulty_options() -> list[sqlite3.Cursor]:
     with GameConfigDAO() as g_dao:
-        diff_options: list[int] = g_dao.get_difficulty_options()
+        diff_options: list[sqlite3.Cursor] = g_dao.get_difficulty_options()
     return diff_options
 
 

@@ -40,7 +40,6 @@ class Words:
         while my_num in self.word_set:
             my_num = math.floor(random.random()*len(words_with_min_difficulty))
         self.word_set.add(my_num)
-
         return words_with_min_difficulty[my_num]
 
     def menu(self):

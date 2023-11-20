@@ -6,9 +6,6 @@ from src.config.leaderboard.leaderboard_config import LeaderBoardConfig
 
 logger = logging.getLogger("main.leaderboard")
 
-NO_PLAYER_AVAILABLE_TO_SHOW = "No Players Available to show"
-TOP_MESSAGE = "Here are the top scorers of the game"
-
 
 class Leaderboard:
     def __init__(self):
@@ -22,11 +19,11 @@ class Leaderboard:
             return
         print(LeaderBoardConfig.TOP_MESSAGE)
         print("\n---------------------------------------------------")
-        print(LeaderBoardConfig.TABLE_HEADER)
+        print(f'{LeaderBoardConfig.TABLE_HEADER}')
         try:
             for player_ in self.leaderboard:
+                # data is reaching
                 print(f'{player_.uname:20}{str(player_.high_score):20}{format_date(player_.scored_on):20}')
-                print()
             print("---------------------------------------------------")
         except ValueError as err:
             print(err.args[0])

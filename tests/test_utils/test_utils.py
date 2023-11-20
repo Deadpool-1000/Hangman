@@ -4,6 +4,10 @@ from src.utils.utils import is_password_safe, get_good_input, format_date, menu
 
 
 class TestUtils:
+    def test_is_password_safe_with_empty(self):
+        return_val = is_password_safe('')
+        assert return_val is False
+
     def test_is_password_safe_with_unsafe_password(self):
         return_val = is_password_safe('admin')
         assert return_val is False
@@ -31,8 +35,20 @@ class TestUtils:
         date: datetime = format_date(inp_date)
         assert date == expected
 
-    def test_menu_with_quit_option(self, monkeypatch):
-        my_inputs = iter(['p', 'q'])
+    @pytest.mark.parametrize('inp', [['a'], ['b', 'q']])
+    def test_menu_with_valid_options(self, monkeypatch, inp):
+        my_inputs = iter(inp)
+        expected_val = iter(inp)
+        monkeypatch.setattr('builtins.input', lambda _: next(my_inputs))
+        m = menu('', ['a', 'b'])
+        ret_val = next(m)
+        assert ret_val == next(expected_val)
+
+    @pytest.mark.parametrize('inp', [['', 'p', 'q'], ['p', 'p', 'q']])
+    def test_menu_with_quit_option(self, monkeypatch, inp):
+        my_inputs = iter(inp)
         monkeypatch.setattr('builtins.input', lambda _: next(my_inputs))
         with pytest.raises(StopIteration):
-            menu('', ['q', 'a', 'b', 'c'])
+            m = menu('', ['q', 'a', 'b', 'c'])
+            ret = next(m)
+
