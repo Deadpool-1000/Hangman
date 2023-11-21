@@ -51,4 +51,3 @@ class TestUtils:
         with pytest.raises(StopIteration):
             m = menu('', ['q', 'a', 'b', 'c'])
             ret = next(m)
-

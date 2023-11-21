@@ -1,5 +1,5 @@
 import yaml
-WORDS_CONFIGS_PATH = 'src/config/words/words.yml'
+WORDS_CONFIGS_PATH = 'config/words/words.yml'
 
 
 class WordsConfig:

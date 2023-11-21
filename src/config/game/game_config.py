@@ -1,5 +1,5 @@
 import yaml
-GAME_CONFIGS_PATH = "src/config/game/game.yml"
+GAME_CONFIGS_PATH = "config/game/game.yml"
 
 
 class GameConfig:

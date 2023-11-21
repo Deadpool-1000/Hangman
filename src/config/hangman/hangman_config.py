@@ -1,5 +1,5 @@
 import yaml
-HANGMAN_CONFIG_PATH = 'src/config/hangman/hangman.yml'
+HANGMAN_CONFIG_PATH = 'config/hangman/hangman.yml'
 
 
 class HangmanConfig:

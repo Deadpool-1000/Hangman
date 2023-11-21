@@ -1,5 +1,5 @@
 import yaml
-LOG_CONFIG_PATH = 'src/config/logs/logs.yml'
+LOG_CONFIG_PATH = 'config/logs/logs.yml'
 
 
 class LogsConfig:

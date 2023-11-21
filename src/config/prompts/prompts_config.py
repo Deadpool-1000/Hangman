@@ -1,5 +1,5 @@
 import yaml
-PROMPT_CONFIG_PATH = 'src/config/prompts/prompt.yml'
+PROMPT_CONFIG_PATH = 'config/prompts/prompt.yml'
 
 
 class PromptConfig:

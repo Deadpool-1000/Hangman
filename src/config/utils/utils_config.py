@@ -1,5 +1,5 @@
 import yaml
-UTILS_CONFIGS_PATH = 'src/config/utils/utils.yml'
+UTILS_CONFIGS_PATH = 'config/utils/utils.yml'
 
 
 class UtilsConfig:

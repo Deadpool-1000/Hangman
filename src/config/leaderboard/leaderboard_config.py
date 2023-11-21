@@ -1,5 +1,5 @@
 import yaml
-LEADERBOARD_CONFIG_PATH = 'src/config/leaderboard/leaderboard.yml'
+LEADERBOARD_CONFIG_PATH = 'config/leaderboard/leaderboard.yml'
 
 
 class LeaderBoardConfig:

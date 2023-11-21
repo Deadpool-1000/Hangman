@@ -7,6 +7,8 @@ name = "pypi"
 maskpass = "*"
 pytest = "*"
 pyyaml = "*"
+pytest-order = "*"
+pytest-mock = "*"
 
 [dev-packages]
 

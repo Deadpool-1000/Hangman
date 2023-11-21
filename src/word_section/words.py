@@ -6,6 +6,7 @@ from src.utils.exception import OutOfWordsError
 from src.config.prompts.prompts_config import PromptConfig
 from src.config.words.words_config import WordsConfig
 from src.utils.words_util import words_menu, input_new_word, input_word_and_new_definition
+from src.utils.words_util import read_words
 
 
 class Words:
@@ -14,20 +15,8 @@ class Words:
     """
 
     def __init__(self):
-        self.words = []
         self.word_set = set()
-        self.read_words()
-
-    def read_words(self):
-        with open(rf'{WordsConfig.WORDS_FILE_PATH}', 'r') as f:
-            temp = [line.split('|') for line in f.readlines()]
-            words = [{
-               "id": ind,
-               "word":  word[0],
-               "part_of_speech": word[1],
-               "hint": word[2]
-            } for ind, word in enumerate(temp) if word[1] == 'noun']
-            self.words = words
+        self.words = read_words()
 
     def get_random_word(self, min_limit: int) -> {str: int | str}:
         words_with_min_difficulty = [word for word in self.words if len(word['word']) >= min_limit]
@@ -79,7 +68,7 @@ class Words:
         print(WordsConfig.SUCCESS_ADD.format(word))
 
         # Load new contents
-        self.read_words()
+        self.words = read_words()
 
     def update_word(self):
         system('cls')
@@ -108,7 +97,7 @@ class Words:
         print(WordsConfig.SUCCESS_UPDATE.format(new_word, new_definition))
 
         # load new contents
-        self.read_words()
+        self.words = read_words()
 
     def delete_word(self):
         system('cls')
@@ -131,4 +120,4 @@ class Words:
             f.writelines(contents)
 
         print(WordsConfig.SUCCESS_DELETE.format(word))
-        self.read_words()
+        self.words = read_words()

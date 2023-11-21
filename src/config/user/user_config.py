@@ -1,5 +1,5 @@
 import yaml
-USER_CONFIG_PATH = 'src/config/user/user.yml'
+USER_CONFIG_PATH = 'config/user/user.yml'
 
 
 class UserConfig:

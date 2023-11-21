@@ -1,5 +1,5 @@
 import yaml
-QUERIES_CONFIG_PATH = 'src/config/queries/queries.yml'
+QUERIES_CONFIG_PATH = 'config/queries/queries.yml'
 
 
 class QueriesConfig:
