@@ -7,7 +7,7 @@ EMPTY_NEW_WORD : "New Word can't be empty: "
 EMPTY_NEW_WORD_DEFINITION : "A hint must be given for the new word: "
 INPUT_NEW_WORD_SOURCE : "A source or url for the new word: "
 EMPTY_NEW_WORD_SOURCE : "Source of the new word can't be empty: "
-WORDS_FILE_PATH : .\src\word_section\words.txt
+WORDS_FILE_PATH : word_section\words.txt
 DELETE_PROMPT : "Enter the word you want to delete: "
 UPDATE_WORD : "Enter the word you want to update: "
 UPDATE_NEW_DEFINITION : "Enter the new definition: "

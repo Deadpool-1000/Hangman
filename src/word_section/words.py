@@ -13,10 +13,14 @@ class Words:
     """
         A class that is used for retrieving words from database
     """
+    singleton = 1
+    words = []
 
     def __init__(self):
         self.word_set = set()
-        self.words = read_words()
+        if self.singleton != 0:
+            self.words = read_words()
+            self.singleton -= 1
 
     def get_random_word(self, min_limit: int) -> {str: int | str}:
         words_with_min_difficulty = [word for word in self.words if len(word['word']) >= min_limit]

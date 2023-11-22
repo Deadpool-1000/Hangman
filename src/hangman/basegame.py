@@ -15,7 +15,7 @@ class BaseGame:
     def __init__(self, player) -> None:
         self.player: Player = player
 
-    def declare_results(self) -> None:
+    def declare_final_results(self) -> None:
         print("\n---------------------------------------------------")
         final_score: float = self.player.final_score
         if final_score > 0:
@@ -29,6 +29,3 @@ class BaseGame:
     def exit_game(self, rounds_played: int, rounds_won):
         print(THANKS_MESSAGE)
         self.player.update_stats(rounds_played, rounds_won)
-
-    def calculate_rounds_won(self):
-        return self.player.calculate_rounds_won()

@@ -29,10 +29,10 @@ class Hangman(BaseGame):
         self.current_word: str | None = None
         self.current_description: str | None = None
         self.difficulty = difficulty
-        self.word_machine = Words()
 
     def get_random_word_and_description(self) -> tuple[str, str]:
-        random_word: dict = self.word_machine.get_random_word(self.difficulty)
+        word_machine = Words()
+        random_word: dict[str: str] = word_machine.get_random_word(self.difficulty)
         word = random_word['word']
         description = random_word['hint']
         return word, description
@@ -52,33 +52,45 @@ class Hangman(BaseGame):
         try:
             while self.completed_rounds < self.num_of_rounds:
                 print()
-                print(HangmanConfig.ROUND_INFO.format(self.completed_rounds+1))  # It will be total self.num_of_rounds - self.num_of_rounds(var) + 1
+                # It will be total self.num_of_rounds - self.num_of_rounds(var) + 1
+                print(HangmanConfig.ROUND_INFO.format(self.completed_rounds+1))
+
+                # Gets new word for the current round
                 self.current_word, self.current_description = self.get_random_word_and_description()
-                score = self.play_game()  # Calls the playing routine for self.player
-                self.update_scores(score)  # reflect scores on the players object
+
+                # Play the actual game
+                score = self.play_game()
+
                 self.results(score, self.completed_rounds)
-                self.reset_game()  # reset hangman variables
+                self.reset_game()
                 self.completed_rounds += 1
-            self.declare_results()
-            won_rounds = self.calculate_rounds_won()
+
+            self.declare_final_results()
+
+            won_rounds = self.player.calculate_rounds_won()
             self.exit_game(self.completed_rounds, won_rounds)
+
         except OutOfWordsError as oe:
             print(oe)
             logger.error(LogsConfig.OUT_OF_WORDS_ERROR_LOG)
 
     def play_game(self) -> int:
+
         while self.left_chances != 0 and not self.all_guessed_correctly():
             self.generate_prompt(self.current_word, self.current_description)
             letter_guessed = Hangman.input_letter()
+
             while self.is_already_guessed(letter_guessed):
                 print(HangmanConfig.ALREADY_GUESSED)
                 letter_guessed = Hangman.input_letter()
-            if not self.validate_input(letter_guessed):
+
+            if not self.is_guess_right(letter_guessed):
                 self.left_chances -= 1
                 print(hanged(6-self.left_chances))
             else:
                 print(HangmanConfig.CORRECT_GUESS)
         print("\n---------------------------------------------------")
+
         if self.all_guessed_correctly():
             print(HangmanConfig.ALL_GUESSED_CORRECTLY.format(self.current_word))
         elif self.left_chances == 0:
@@ -93,7 +105,7 @@ class Hangman(BaseGame):
     def is_already_guessed(self, letter_guessed) -> bool:
         return True if letter_guessed in self.guessed_letters else False
 
-    def validate_input(self, letter_guessed) -> bool:
+    def is_guess_right(self, letter_guessed) -> bool:
         self.guessed_letters.append(letter_guessed)
         if letter_guessed in self.current_word:
             self.correctly_guessed.append(letter_guessed)
@@ -115,15 +127,8 @@ class Hangman(BaseGame):
             user_input = input(HangmanConfig.ENTER_SINGLE_CHARACTER).strip()
         return user_input
 
-    def update_scores(self, score) -> None:
-        """
-        Stores the score of the current round in players->score list
-        :param score:
-        :return: None
-        """
-        self.player.scores.append(score)
-
     def results(self, score: int, game_round: int) -> None:
+        self.player.scores.append(score)
         logger.debug(LogsConfig.PLAYER_RESULT_DEBUG.format(self.player.name, score))
         print(HangmanConfig.RESULT_OF_SINGLE_ROUND.format(score, game_round + 1))
         print("---------------------------------------------------")

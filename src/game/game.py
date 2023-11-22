@@ -41,7 +41,7 @@ class Game:
             system('cls')
 
     @staticmethod
-    def _login() -> Player | None:
+    def login() -> Player | None:
         uname, password = input_uname_and_password(GameConfig.LOGIN_PROMPT)
         try:
             with PlayerDAO() as p_dao:
@@ -77,7 +77,7 @@ class Game:
             return new_player
 
     @classmethod
-    def _signup(cls) -> Player | None:
+    def signup(cls) -> Player | None:
         uname, password = input_uname_and_password(GameConfig.SIGNUP_PROMPT)
         password = validate_password(password)
         try:
