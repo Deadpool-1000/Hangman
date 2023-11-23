@@ -22,8 +22,8 @@ class Game:
         :return: None
         """
         game_functions = {
-            'l': cls._login,
-            's': cls._signup
+            'l': cls.login,
+            's': cls.signup
         }
         print(GameConfig.MAIN_MESSAGE)
         m = menu(PromptConfig.MAIN_PROMPT, allowed=['l', 's'])
@@ -51,11 +51,11 @@ class Game:
             print(e)
             return None
         except sqlite3.ProgrammingError as err:
-            logger.error(f'Database Programming error {err.sqlite_errorname}')
+            logger.error(f'Database Programming error {err}')
             print('There was some problem 😔')
             return None
         except sqlite3.Error as err:
-            logger.error(f'Database error {err.sqlite_errorname}')
+            logger.error(f'Database error {err}')
             print('There was some problem 😔')
             return None
 
@@ -88,9 +88,9 @@ class Game:
             print(ae)
             return None
         except sqlite3.Error as err:
-            logger.error('Database error' , err)
+            logger.error(err)
             print('There was some problem, please try again')
             return None
         system('cls')
         print(GameConfig.SUCCESSFUL_SIGNUP)
-        return cls._login()
+        return cls.login()
