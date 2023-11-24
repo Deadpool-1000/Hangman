@@ -12,7 +12,7 @@ class GameConfigDAO:
     def __init__(self):
         self.connection = sqlite3.connect(PromptConfig.DBPATH)
         self.cur = self.connection.cursor()
-        if self.singleton != 1:
+        if self.singleton != 0:
             self.cur.execute(QueriesConfig.CREATE_TABLE_QUERY)
             self.connection.commit()
             self.singleton -= 1

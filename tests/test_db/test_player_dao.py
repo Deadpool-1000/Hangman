@@ -2,6 +2,15 @@ import pytest
 import sqlite3
 import hashlib
 from src.db.players.PlayerDAO import PlayerDAO
+from src.utils.named_tuples import Leaderboard
+from datetime import datetime
+
+
+sample_leaderboard_data = [
+    ('test1', 9.2, '2023-10-25 11:37:54.637963'),
+    ('test2', 7, '2023-10-25 11:37:54.637963'),
+    ('test3', 10, '2023-10-25 11:37:54.637963')
+]
 
 
 @pytest.fixture
@@ -21,7 +30,7 @@ def mock_sqlite3_execute(mocker):
 
 @pytest.fixture
 def mock_user(mock_sqlite3_execute):
-    mock_sqlite3_execute.return_value = [('a', 'b', 'c')]
+    mock_sqlite3_execute.return_value.fetchall.return_value = [('a', 'b', 'c')]
 
 
 @pytest.fixture
@@ -39,6 +48,11 @@ def mock_execute_for_login(mocker, mock_sqlite3_execute):
     m = mocker.Mock()
     m.fetchall = lambda: next(ret_values)
     mock_sqlite3_execute.return_value = m
+
+
+@pytest.fixture
+def mock_leaderboard(mocker, mock_sqlite3_execute):
+    mock_sqlite3_execute.return_value.fetchall.return_value = sample_leaderboard_data
 
 
 class TestPlayerDAO:
@@ -66,3 +80,18 @@ class TestPlayerDAO:
         with pytest.raises(Exception):
             with PlayerDAO() as p_dao:
                 p_dao.login(uname, password)
+
+    def test_update_high_score(self, mock_sqlite3_execute):
+        with PlayerDAO() as p_dao:
+            p_dao.update_high_score('test', 9.8)
+            mock_sqlite3_execute.assert_any_call(None, (9.8, datetime.now(), 'test'))
+
+    def test_get_leaderboard(self, mock_leaderboard):
+        with PlayerDAO() as p_dao:
+            res = p_dao.get_leaderboard()
+            assert res == sample_leaderboard_data
+
+    def test_update_player_stats(self, mock_sqlite3_execute):
+        with PlayerDAO() as p_dao:
+            p_dao.update_player_stats(9, 11, 'test1')
+            mock_sqlite3_execute.assert_any_call(None, (9, 11, 'test1'))

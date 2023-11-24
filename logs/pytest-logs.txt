@@ -1,0 +1,19 @@
+INFO     main.database:PlayerDAO.py:26 Three tables are created
+ERROR    main.database:PlayerDAO.py:42 None
+INFO     main.database:PlayerDAO.py:26 Three tables are created
+INFO     main.database:PlayerDAO.py:26 Three tables are created
+DEBUG    main.database:PlayerDAO.py:53 None
+DEBUG    main.database:PlayerDAO.py:54 Invalid Username
+INFO     main.database:PlayerDAO.py:26 Three tables are created
+INFO     main.database:PlayerDAO.py:26 Three tables are created
+DEBUG    main.database:PlayerDAO.py:59 None
+DEBUG    main.database:PlayerDAO.py:60 Invalid password
+INFO     main.database:PlayerDAO.py:26 Three tables are created
+DEBUG    main.database:PlayerDAO.py:59 None
+DEBUG    main.database:PlayerDAO.py:60 Invalid password
+INFO     main.database:PlayerDAO.py:26 Three tables are created
+INFO     main.database:PlayerDAO.py:26 Three tables are created
+INFO     main.database:PlayerDAO.py:26 Three tables are created
+ERROR    main.mygame:game.py:58 Database error 
+ERROR    main.mygame:game.py:54 Database Programming error 
+ERROR    main.mygame:game.py:91 

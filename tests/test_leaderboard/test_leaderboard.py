@@ -76,4 +76,4 @@ class TestLeaderboard:
 There was some problem please try again later\n'''
         mock_leaderboard_without_date_patch.show_leaderboard()
         captured = capsys.readouterr()
-        assert  captured.out == expected_message
+        assert captured.out == expected_message

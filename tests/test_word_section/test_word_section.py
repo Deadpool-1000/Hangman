@@ -4,6 +4,16 @@ from src.word_section.words import Words
 from src.config.words.words_config import WordsConfig
 
 
+@pytest.fixture(scope='class')
+def populate_word_file():
+    yield
+    with open(r'C:\Users\mbhatnagar\PycharmProjects\Hangman\tests\test_word_section\my_words.txt', 'w') as f:
+        f.write('''abate|noun|to reduce in amount, degree, intensity, etc.; lessen; diminish|http://www.dictionary.com/browse/abate
+abbreviate|noun|to shorten (a word or phrase) by omitting letters, substituting shorter forms, etc., so that the shortened form can represent the whole word or phrase, as ft. for foot, ab. for about, R.I. for Rhode Island, NW for Northwest, or Xn for Christian.|http://www.dictionary.com/browse/abbreviate
+abide|noun|to remain; continue; stay|http://www.dictionary.com/browse/abide
+''')
+
+
 sample_words = [
     {
         'id': 0,
@@ -22,6 +32,34 @@ sample_words = [
         'part_of_speech': 'noun',
         'word': 'abide',
         'hint': 'to remain; continue; stay'
+    }
+]
+
+
+sample_words1 = [
+    {
+        'id': 0,
+        'word': 'abate',
+        'hint': 'to reduce in amount, degree, intensity, etc.; lessen; diminish',
+        'part_of_speech': 'noun'
+    },
+    {
+        'id': 1,
+        'word': 'abbreviate',
+        'hint': 'to shorten (a word or phrase) by omitting letters, substituting shorter forms, etc., so that the shortened form can represent the whole word or phrase, as ft. for foot, ab. for about, R.I. for Rhode Island, NW for Northwest, or Xn for Christian.',
+        'part_of_speech': 'noun'
+    },
+    {
+        'id': 2,
+        'part_of_speech': 'noun',
+        'word': 'abide',
+        'hint': 'to remain; continue; stay'
+    },
+    {
+        'id': 3,
+        'word': 'coding',
+        'hint': 'stressful job',
+        'part_of_speech': 'noun'
     }
 ]
 
@@ -72,9 +110,14 @@ update_sample_words = [
 
 @pytest.fixture
 def words_from_test_file(monkeypatch):
-    monkeypatch.setattr(WordsConfig, 'WORDS_FILE_PATH', 'test_word_section\my_words.txt')
+    monkeypatch.setattr(WordsConfig, 'WORDS_FILE_PATH', r'C:\Users\mbhatnagar\PycharmProjects\Hangman\tests\test_word_section\my_words.txt')
     word_section = Words()
-    return word_section
+    yield word_section
+#     with open(r'C:\Users\mbhatnagar\PycharmProjects\Hangman\tests\test_word_section\my_words.txt', 'w') as f:
+#         f.write('''abate|noun|to reduce in amount, degree, intensity, etc.; lessen; diminish|http://www.dictionary.com/browse/abate
+# abbreviate|noun|to shorten (a word or phrase) by omitting letters, substituting shorter forms, etc., so that the shortened form can represent the whole word or phrase, as ft. for foot, ab. for about, R.I. for Rhode Island, NW for Northwest, or Xn for Christian.|http://www.dictionary.com/browse/abbreviate
+# abide|noun|to remain; continue; stay|http://www.dictionary.com/browse/abide
+# ''')
 
 
 def mock_input_new_word():
@@ -85,6 +128,7 @@ def mock_input_word_and_new_definition():
     return 'abide', 'To Abide'
 
 
+@pytest.mark.usefixtures('populate_word_file')
 class TestWordSection:
     @pytest.mark.order(1)
     def test_read_words_with_test_file(self, words_from_test_file):
@@ -101,7 +145,8 @@ class TestWordSection:
         monkeypatch.setattr('src.word_section.words.input_new_word', mock_input_new_word)
         monkeypatch.setattr(WordsConfig, 'SUCCESS_ADD', '')
         words_from_test_file.add_new_word()
-        assert words_from_test_file.words == [*sample_words, {'id': 3, 'word': 'coding', 'hint': 'stressful job', 'part_of_speech': 'noun'}]
+        print(words_from_test_file.words)
+        assert words_from_test_file.words == sample_words1
 
     @pytest.mark.order(4)
     def test_delete_word(self, monkeypatch, words_from_test_file):
