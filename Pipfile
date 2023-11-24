@@ -10,7 +10,6 @@ pyyaml = "*"
 pytest-order = "*"
 pytest-mock = "*"
 pytest-cov = "*"
-tox = "*"
 
 [dev-packages]
 
