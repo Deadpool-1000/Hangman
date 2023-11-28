@@ -1,5 +1,8 @@
 import yaml
-PROMPT_CONFIG_PATH = 'config/prompts/prompt.yml'
+import os
+
+path_current_directory = os.path.dirname(__file__)
+PROMPT_CONFIG_PATH = os.path.join(path_current_directory, 'prompt.yml')
 
 
 class PromptConfig:

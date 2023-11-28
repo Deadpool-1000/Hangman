@@ -1,5 +1,8 @@
 import yaml
-UTILS_CONFIGS_PATH = 'config/utils/utils.yml'
+import os
+
+path_current_directory = os.path.dirname(__file__)
+UTILS_CONFIGS_PATH = os.path.join(path_current_directory, 'utils.yml')
 
 
 class UtilsConfig:

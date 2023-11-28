@@ -1,5 +1,8 @@
 import yaml
-GAME_CONFIGS_PATH = "config/game/game.yml"
+import os
+
+path_current_directory = os.path.dirname(__file__)
+GAME_CONFIGS_PATH = os.path.join(path_current_directory, 'game.yml')
 
 
 class GameConfig:

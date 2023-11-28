@@ -4,10 +4,13 @@ from src.word_section.words import Words
 from src.config.words.words_config import WordsConfig
 
 
+TEST_WORD_FILE_PATH = r'tests\test_word_section\my_words.txt'
+
+
 @pytest.fixture(scope='class')
 def populate_word_file():
     yield
-    with open(r'C:\Users\mbhatnagar\PycharmProjects\Hangman\tests\test_word_section\my_words.txt', 'w') as f:
+    with open(TEST_WORD_FILE_PATH, 'w') as f:
         f.write('''abate|noun|to reduce in amount, degree, intensity, etc.; lessen; diminish|http://www.dictionary.com/browse/abate
 abbreviate|noun|to shorten (a word or phrase) by omitting letters, substituting shorter forms, etc., so that the shortened form can represent the whole word or phrase, as ft. for foot, ab. for about, R.I. for Rhode Island, NW for Northwest, or Xn for Christian.|http://www.dictionary.com/browse/abbreviate
 abide|noun|to remain; continue; stay|http://www.dictionary.com/browse/abide
@@ -110,14 +113,9 @@ update_sample_words = [
 
 @pytest.fixture
 def words_from_test_file(monkeypatch):
-    monkeypatch.setattr(WordsConfig, 'WORDS_FILE_PATH', r'C:\Users\mbhatnagar\PycharmProjects\Hangman\tests\test_word_section\my_words.txt')
+    monkeypatch.setattr(WordsConfig, 'WORDS_FILE_PATH', TEST_WORD_FILE_PATH)
     word_section = Words()
-    yield word_section
-#     with open(r'C:\Users\mbhatnagar\PycharmProjects\Hangman\tests\test_word_section\my_words.txt', 'w') as f:
-#         f.write('''abate|noun|to reduce in amount, degree, intensity, etc.; lessen; diminish|http://www.dictionary.com/browse/abate
-# abbreviate|noun|to shorten (a word or phrase) by omitting letters, substituting shorter forms, etc., so that the shortened form can represent the whole word or phrase, as ft. for foot, ab. for about, R.I. for Rhode Island, NW for Northwest, or Xn for Christian.|http://www.dictionary.com/browse/abbreviate
-# abide|noun|to remain; continue; stay|http://www.dictionary.com/browse/abide
-# ''')
+    return word_section
 
 
 def mock_input_new_word():

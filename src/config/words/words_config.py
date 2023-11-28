@@ -1,5 +1,8 @@
 import yaml
-WORDS_CONFIGS_PATH = 'config/words/words.yml'
+import os
+
+path_current_directory = os.path.dirname(__file__)
+WORDS_CONFIGS_PATH = os.path.join(path_current_directory, 'words.yml')
 
 
 class WordsConfig:

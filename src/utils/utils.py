@@ -67,8 +67,10 @@ def is_password_safe(password):
 
 
 def input_game_params(prompt: str, params: list[sqlite3.Cursor]):
+
     rounds_prompt = "\t|\t".join([str(round_) for round_ in list(params)])
     main_prompt = f'{prompt}\n{rounds_prompt}'
+
     print(main_prompt)
     params = [str(num) for num in params]
 

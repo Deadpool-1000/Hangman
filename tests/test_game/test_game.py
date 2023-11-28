@@ -1,4 +1,7 @@
 import sqlite3
+
+import pytest
+
 from src.player.player import Player
 from src.player.admin import Admin
 from src.game.game import Game
@@ -23,7 +26,7 @@ def mock_raise_already_exists(uname, password):
 
 
 class TestGame:
-    def test_login_with_player(self, mocker):
+    def test_login_with_player(self, mocker, my_config_loader):
         m = mocker.MagicMock()
         mocker.patch('src.game.game.PlayerDAO', m)
         m().__enter__().login = lambda a, b: PTuple(name='test', role='player', high_score=7.0, total_games_played=3, total_games_won=2, highscore_created_on='22222')

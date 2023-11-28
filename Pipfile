@@ -10,6 +10,7 @@ pyyaml = "*"
 pytest-order = "*"
 pytest-mock = "*"
 pytest-cov = "*"
+coverage = "*"
 
 [dev-packages]
 

@@ -1,5 +1,8 @@
 import yaml
-LOG_CONFIG_PATH = 'config/logs/logs.yml'
+import os
+
+path_current_directory = os.path.dirname(__file__)
+LOG_CONFIG_PATH = os.path.join(path_current_directory, 'logs.yml')
 
 
 class LogsConfig:

@@ -1,6 +1,8 @@
 import yaml
-HANGMAN_CONFIG_PATH = 'config/hangman/hangman.yml'
+import os
 
+path_current_directory = os.path.dirname(__file__)
+HANGMAN_CONFIG_PATH = os.path.join(path_current_directory, 'hangman.yml')
 
 class HangmanConfig:
     WELCOME_TO_GAME = None

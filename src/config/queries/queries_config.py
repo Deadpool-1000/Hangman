@@ -1,5 +1,8 @@
 import yaml
-QUERIES_CONFIG_PATH = 'config/queries/queries.yml'
+import os
+
+path_current_directory = os.path.dirname(__file__)
+QUERIES_CONFIG_PATH = os.path.join(path_current_directory, 'queries.yml')
 
 
 class QueriesConfig:

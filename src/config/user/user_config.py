@@ -1,5 +1,8 @@
 import yaml
-USER_CONFIG_PATH = 'config/user/user.yml'
+import os
+
+path_current_directory = os.path.dirname(__file__)
+USER_CONFIG_PATH = os.path.join(path_current_directory, 'user.yml')
 
 
 class UserConfig:

@@ -1,5 +1,9 @@
 import yaml
-LEADERBOARD_CONFIG_PATH = 'config/leaderboard/leaderboard.yml'
+import os
+
+path_current_directory = os.path.dirname(__file__)
+LEADERBOARD_CONFIG_PATH = os.path.join(path_current_directory, 'leaderboard.yml')
+
 
 
 class LeaderBoardConfig:
