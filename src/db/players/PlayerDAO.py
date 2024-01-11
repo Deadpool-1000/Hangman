@@ -49,7 +49,7 @@ class PlayerDAO:
         rws = self.find_user(uname)
         player = rws.fetchall()
         # Invalid Username
-        if len(player) == 0:
+        if not player:
             logger.debug(LogsConfig.INVALID_USERNAME_OR_PASSWORD)
             logger.debug('Invalid Username')
             raise InvalidUsernameOrPasswordError(LogsConfig.INVALID_USERNAME_OR_PASSWORD)

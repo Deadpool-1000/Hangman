@@ -11,6 +11,8 @@ pytest-order = "*"
 pytest-mock = "*"
 pytest-cov = "*"
 coverage = "*"
+pylint = "*"
+flask-sqlalchemy = "*"
 
 [dev-packages]
 

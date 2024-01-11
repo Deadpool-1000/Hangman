@@ -1086,3 +1086,27 @@
 28-07-2023 01:07:07 INFO     [main.py:22] Game Ended
 28-09-2023 01:09:07 INFO     [main.py:20] Game Started
 28-09-2023 01:09:16 INFO     [main.py:22] Game Ended
+28-47-2023 09:47:26 INFO     [main.py:24] Game Started
+28-47-2023 09:47:37 ERROR    [game.py:58] Database error unable to open database file
+28-47-2023 09:47:49 ERROR    [game.py:58] Database error unable to open database file
+28-51-2023 09:51:16 INFO     [main.py:26] Game Ended
+28-51-2023 09:51:21 INFO     [main.py:24] Game Started
+28-51-2023 09:51:26 INFO     [PlayerDAO.py:26] Three tables are created
+28-51-2023 09:51:36 INFO     [main.py:26] Game Ended
+28-53-2023 09:53:42 INFO     [main.py:24] Game Started
+28-53-2023 09:53:52 INFO     [PlayerDAO.py:26] Three tables are created
+28-54-2023 09:54:13 INFO     [main.py:26] Game Ended
+28-58-2023 09:58:10 INFO     [main.py:24] Game Started
+28-58-2023 09:58:35 INFO     [PlayerDAO.py:26] Three tables are created
+28-58-2023 09:58:43 INFO     [PlayerDAO.py:26] Three tables are created
+28-59-2023 09:59:40 DEBUG    [hangman.py:132] tanmay scored 6
+28-59-2023 09:59:40 INFO     [PlayerDAO.py:26] Three tables are created
+28-59-2023 09:59:40 INFO     [PlayerDAO.py:26] Three tables are created
+28-00-2023 10:00:13 DEBUG    [hangman.py:132] tanmay scored 7
+28-00-2023 10:00:31 DEBUG    [hangman.py:132] tanmay scored 7
+28-01-2023 10:01:12 DEBUG    [hangman.py:132] tanmay scored 5
+28-01-2023 10:01:34 DEBUG    [hangman.py:132] tanmay scored 6
+28-02-2023 10:02:24 DEBUG    [hangman.py:132] tanmay scored 3
+28-03-2023 10:03:06 DEBUG    [hangman.py:132] tanmay scored 5
+28-03-2023 10:03:06 INFO     [PlayerDAO.py:26] Three tables are created
+28-03-2023 10:03:36 INFO     [main.py:26] Game Ended

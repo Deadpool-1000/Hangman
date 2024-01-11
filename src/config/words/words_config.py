@@ -44,7 +44,7 @@ class WordsConfig:
             cls.EMPTY_NEW_WORD_DEFINITION = data['EMPTY_NEW_WORD_DEFINITION']
             cls.INPUT_NEW_WORD_SOURCE = data['INPUT_NEW_WORD_SOURCE']
             cls.EMPTY_NEW_WORD_SOURCE = data['EMPTY_NEW_WORD_SOURCE']
-            cls.WORDS_FILE_PATH = data['WORDS_FILE_PATH']
+            cls.WORDS_FILE_PATH = os.path.join(path_current_directory, f"../../{data['WORDS_FILE_PATH']}")
             cls.DELETE_PROMPT = data['DELETE_PROMPT']
             cls.UPDATE_WORD = data['UPDATE_WORD']
             cls.UPDATE_NEW_DEFINITION = data['UPDATE_NEW_DEFINITION']

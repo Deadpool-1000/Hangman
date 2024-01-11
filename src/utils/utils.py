@@ -17,7 +17,6 @@ def get_good_input(main_prompt: str, empty_prompt: str):
     return user_input
 
 
-# format_date(2023)
 def format_date(date):
     try:
         date = datetime.strptime(date, '%Y-%m-%d %H:%M:%S.%f')

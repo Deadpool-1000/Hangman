@@ -22,7 +22,7 @@ class PromptConfig:
     def load(cls):
         with open(PROMPT_CONFIG_PATH, 'r') as f:
             data = yaml.safe_load(f)
-            cls.DBPATH = data['DBPATH']
+            cls.DBPATH = os.path.join(path_current_directory, f"../../{data['DBPATH']}")
             cls.MAIN_PROMPT = data['MAIN_PROMPT']
             cls.ADMIN_PROMPT = data['ADMIN_PROMPT']
             cls.PLAYER_PROMPT = data['PLAYER_PROMPT']
