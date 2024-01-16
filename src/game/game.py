@@ -1,11 +1,11 @@
 import sqlite3
 import logging
 from os import system
-from src.player.admin import Admin
-from src.player.player import Player
+from src.user.admin import Admin
+from src.user.player import Player
 from src.hangman.graphic import hanged
 from src.utils.exception import AlreadyExistsError, InvalidUsernameOrPasswordError
-from src.db.players.PlayerDAO import PlayerDAO
+from src.DBUtils.players.PlayerDAO import PlayerDAO
 from src.utils.utils import input_uname_and_password, validate_password, menu
 from src.config.prompts.prompts_config import PromptConfig
 from src.config.game.game_config import GameConfig
@@ -61,6 +61,7 @@ class Game:
 
         if player_tuple.role == 'admin':
             return Admin(
+                user_id=player_tuple.id,
                 name=player_tuple.name, high_score=player_tuple.high_score,
                 highscore_created_on=player_tuple.highscore_created_on,
                 total_games_played=player_tuple.total_games_played,
@@ -68,6 +69,7 @@ class Game:
             )
         else:
             new_player = Player(
+                user_id=player_tuple.id,
                 name=player_tuple.name, role='player',
                 high_score=player_tuple.high_score,
                 highscore_created_on=player_tuple.highscore_created_on,

@@ -17,6 +17,7 @@ flask = "*"
 flask-jwt-extended = "*"
 flask-smorest = "*"
 shortuuid = "*"
+marshmallow = "*"
 
 [dev-packages]
 

@@ -74,20 +74,28 @@ class PlayerDAO:
         logged_in_player = Player(id=player[0][0], name=player[0][1], role=player[0][3], high_score=player_data[0][1], highscore_created_on=player_data[0][4], total_games_played=player_data[0][2], total_games_won=player_data[0][3])
         return logged_in_player
 
-    def update_high_score(self, uname: str, new_high_score: float):
-        self.cur.execute(QueriesConfig.UPDATE_HIGH_SCORE, (new_high_score, datetime.now(), uname))
+    def update_high_score(self, user_id: str, new_high_score: float):
+        self.cur.execute(QueriesConfig.UPDATE_HIGH_SCORE, (new_high_score, datetime.now(), user_id))
 
     def get_leaderboard(self):
         rws = self.cur.execute(QueriesConfig.GET_LEADERBOARD)
-        return [Leaderboard(uname=player_[0], high_score=player_[1], scored_on=player_[2]) for player_ in rws.fetchall()]
+        return [dict(uname=player_[0], high_score=player_[1], scored_on=player_[2]) for player_ in rws.fetchall()]
 
-    def update_player_stats(self, total_games_played: int, total_games_won: int, uname: str):
-        self.cur.execute(QueriesConfig.UPDATE_PLAYER_STATS, (total_games_played, total_games_won, uname))
+    def update_player_stats(self, total_games_played: int, total_games_won: int, user_id: str):
+        self.cur.execute(QueriesConfig.UPDATE_PLAYER_STATS, (total_games_played, total_games_won, user_id))
+
+    def update_player_score(self, total_games_played: int, total_games_won: int, user_id: str):
+        self.cur.execute(QueriesConfig.UPDATE_PLAYER_SCORE, (total_games_played, total_games_won, user_id))
 
     def get_user_details(self, user_id):
         rws = self.cur.execute(QueriesConfig.PLAYER_DATA, (user_id,))
         user_data = rws.fetchall()
+        # ((user_id, uname, high_score, total_game, total_games_won, high_score_created_on),)
         return user_data[0]
+
+    def get_high_score(self, user_id):
+        rws = self.cur.execute(QueriesConfig.GET_HIGH_SCORE, (user_id,))
+        return rws.fetchall()[0][0]
 
     def is_admin(self, user_id) -> bool:
         user = self.find_user_with_userid(user_id)

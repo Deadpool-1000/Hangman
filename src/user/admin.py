@@ -10,8 +10,9 @@ class Admin(Player):
         Admin of the game.
         Has all the features the player has and can add or remove the words and get the list of existing users
     """
-    def __init__(self, name: str, high_score: float, total_games_played: int, total_games_won: int, highscore_created_on: str) -> None:
+    def __init__(self, user_id:str, name: str, high_score: float, total_games_played: int, total_games_won: int, highscore_created_on: str) -> None:
         super().__init__(
+            user_id=user_id,
             name=name, role="admin",
             high_score=high_score,
             highscore_created_on=highscore_created_on,

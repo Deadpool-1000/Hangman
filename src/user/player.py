@@ -14,8 +14,12 @@ class Player(BaseUser):
         A class that represents player of the game
     """
 
-    def __init__(self, name: str, role: str, high_score: float, total_games_played: int, total_games_won: int, highscore_created_on: str):
-        super().__init__(name, role)
+    def __init__(self, user_id: str, name: str, role: str, high_score: float, total_games_played: int, total_games_won: int, highscore_created_on: str):
+        super().__init__(
+            user_id,
+            name,
+            role
+        )
         self.scores: list[int] = []
         self.all_time_high_score: float = high_score
         self.total_wins: int = 0
