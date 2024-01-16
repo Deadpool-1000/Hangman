@@ -9,7 +9,7 @@ from src.config.logs.logs_config import LogsConfig
 from src.config.user.user_config import UserConfig
 from src.config.prompts.prompts_config import PromptConfig
 
-
+"""
 def load_config(func):
     @wraps(func)
     def inner(*args):
@@ -24,3 +24,13 @@ def load_config(func):
         UserConfig.load()
         func()
     return inner
+"""
+PromptConfig.load()
+UtilsConfig.load()
+QueriesConfig.load()
+GameConfig.load()
+WordsConfig.load()
+HangmanConfig.load()
+LeaderBoardConfig.load()
+LogsConfig.load()
+UserConfig.load()

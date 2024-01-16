@@ -1,4 +1,4 @@
-DBPATH: db\players\players.db
+DBPATH: DBUtils\players\players.db
 INPUT_DIFFICULTY_PROMPT : |
   'e': easy
   'm': medium,

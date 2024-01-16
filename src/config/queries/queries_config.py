@@ -17,6 +17,7 @@ class QueriesConfig:
     UPDATE_PLAYER_STATS = None
     CREATE_TABLE_QUERY = None
     GAME_CONFIG_QUERY = None
+    USER_WITH_UNAME = None
 
     @classmethod
     def load(cls):
@@ -33,3 +34,4 @@ class QueriesConfig:
             cls.UPDATE_PLAYER_STATS = data['UPDATE_PLAYER_STATS']
             cls.CREATE_TABLE_QUERY = data['CREATE_TABLE_QUERY']
             cls.GAME_CONFIG_QUERY = data['GAME_CONFIG_QUERY']
+            cls.USER_WITH_UNAME = data['USER_WITH_UNAME']

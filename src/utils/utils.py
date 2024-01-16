@@ -3,7 +3,7 @@ import sqlite3
 
 import maskpass
 from datetime import datetime
-from src.db.game_config.GameConfigDAO import GameConfigDAO
+from src.DBUtils.game_config.GameConfigDAO import GameConfigDAO
 from src.config.prompts.prompts_config import PromptConfig
 from src.config.utils.utils_config import UtilsConfig
 

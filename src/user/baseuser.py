@@ -1,4 +1,4 @@
-class User:
+class BaseUser:
     """
         Is the base of all the users in the game
     """

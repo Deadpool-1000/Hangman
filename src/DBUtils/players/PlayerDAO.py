@@ -1,4 +1,5 @@
 import sqlite3
+import shortuuid
 import logging
 import hashlib
 from datetime import datetime
@@ -29,25 +30,31 @@ class PlayerDAO:
             self.connection.commit()
             self.singleton -= 1
 
-    def find_user(self, uname: str):
+    def find_user_with_userid(self, user_id: str):
         """ Finds a user in the database with given username """
-        rws = self.cur.execute(QueriesConfig.FIND_USER_QUERY, (uname,))
-        return rws
+        rws = self.cur.execute(QueriesConfig.FIND_USER_QUERY, (user_id,))
+        # ((user_id, uname, password, role),)
+        return rws.fetchall()
+
+    def find_user_with_uname(self, uname: str):
+        rws = self.cur.execute(QueriesConfig.USER_WITH_UNAME, (uname, ))
+        return rws.fetchall()
 
     def signup(self, uname: str, password: str):
         # Already exists
-        rws = self.find_user(uname)
-        print()
-        if rws.fetchall():
+        user_exists = self.find_user_with_uname(uname)
+        if user_exists:
             logger.error(LogsConfig.ALREADY_EXIST_LOG)
             raise AlreadyExistsError(LogsConfig.ALREADY_EXIST_LOG)
+
         hashed_password = hashlib.sha256(password.encode()).hexdigest()
-        self.cur.execute(QueriesConfig.INSERT_INTO_AUTH, (uname, hashed_password, "player"))
-        self.cur.execute(QueriesConfig.INSERT_INTO_PLAYERS, (uname, datetime.now()))
+        user_id = shortuuid.ShortUUID().random(length=5)
+        self.cur.execute(QueriesConfig.INSERT_INTO_AUTH, (user_id, uname, hashed_password, "player"))
+        self.cur.execute(QueriesConfig.INSERT_INTO_PLAYERS, (user_id, datetime.now()))
 
     def login(self, uname: str, password: str):
-        rws = self.find_user(uname)
-        player = rws.fetchall()
+        # ((user_id, uname, password, role),)
+        player = self.find_user_with_uname(uname)
         # Invalid Username
         if not player:
             logger.debug(LogsConfig.INVALID_USERNAME_OR_PASSWORD)
@@ -55,14 +62,16 @@ class PlayerDAO:
             raise InvalidUsernameOrPasswordError(LogsConfig.INVALID_USERNAME_OR_PASSWORD)
 
         # Invalid password
-        if player[0][1] != hashlib.sha256(password.encode()).hexdigest():
+        if player[0][2] != hashlib.sha256(password.encode()).hexdigest():
             logger.debug(LogsConfig.INVALID_USERNAME_OR_PASSWORD)
             logger.debug('Invalid password')
             raise InvalidUsernameOrPasswordError(LogsConfig.INVALID_USERNAME_OR_PASSWORD)
+
         rws = self.cur.execute(QueriesConfig.PLAYER_DATA, (player[0][0],))
         player_data = rws.fetchall()
-
-        logged_in_player = Player(name=player[0][0], role=player[0][2], high_score=player_data[0][1], highscore_created_on=player_data[0][4], total_games_played=player_data[0][2], total_games_won=player_data[0][3])
+        # ((user_id, high_score, total_game, total_games_won, high_score_created_on),)
+        print(player_data)
+        logged_in_player = Player(id=player[0][0], name=player[0][1], role=player[0][3], high_score=player_data[0][1], highscore_created_on=player_data[0][4], total_games_played=player_data[0][2], total_games_won=player_data[0][3])
         return logged_in_player
 
     def update_high_score(self, uname: str, new_high_score: float):
@@ -74,6 +83,15 @@ class PlayerDAO:
 
     def update_player_stats(self, total_games_played: int, total_games_won: int, uname: str):
         self.cur.execute(QueriesConfig.UPDATE_PLAYER_STATS, (total_games_played, total_games_won, uname))
+
+    def get_user_details(self, user_id):
+        rws = self.cur.execute(QueriesConfig.PLAYER_DATA, (user_id,))
+        user_data = rws.fetchall()
+        return user_data[0]
+
+    def is_admin(self, user_id) -> bool:
+        user = self.find_user_with_userid(user_id)
+        return user[0][3] == 'admin'
 
     def __enter__(self):
         return self

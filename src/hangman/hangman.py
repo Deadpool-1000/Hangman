@@ -8,7 +8,7 @@ from src.config.logs.logs_config import LogsConfig
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from src.player.player import Player
+    from src.user.player import Player
 
 logger = logging.getLogger("main.hangman")
 

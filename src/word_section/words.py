@@ -2,7 +2,7 @@ import random
 import math
 from os import system
 from src.utils.utils import menu
-from src.utils.exception import OutOfWordsError
+from src.utils.exception import OutOfWordsError, NoSuchWordFoundError
 from src.config.prompts.prompts_config import PromptConfig
 from src.config.words.words_config import WordsConfig
 from src.utils.words_util import words_menu, input_new_word, input_word_and_new_definition
@@ -66,17 +66,36 @@ class Words:
     def add_new_word(self):
         system('cls')
         word, definition, source = input_new_word()
-        with open(WordsConfig.WORDS_FILE_PATH, 'a') as f:
-            f.write(f'{word}|noun|{definition}|{source}\n')
+
+        self.add_word_and_write_to_file(word, definition, source)
 
         print(WordsConfig.SUCCESS_ADD.format(word))
-
-        # Load new contents
-        self.words = read_words()
 
     def update_word(self):
         system('cls')
         new_word, new_definition = input_word_and_new_definition()
+
+        self.update_word_and_write_to_file(new_word, new_definition)
+
+        print(WordsConfig.SUCCESS_UPDATE.format(new_word, new_definition))
+
+    def delete_word(self):
+        system('cls')
+        word = input(WordsConfig.DELETE_PROMPT)
+
+        self.delete_word_and_write_to_file(word)
+
+        print(WordsConfig.SUCCESS_DELETE.format(word))
+
+    def add_word_and_write_to_file(self, word, definition, source):
+
+        with open(WordsConfig.WORDS_FILE_PATH, 'a') as f:
+            f.write(f'{word}|noun|{definition}|{source}\n')
+
+        # Load new contents
+        self.words = read_words()
+
+    def update_word_and_write_to_file(self, new_word, new_definition):
         contents = []
         flag = 0
         with open(WordsConfig.WORDS_FILE_PATH, 'r') as f:
@@ -92,20 +111,15 @@ class Words:
                 else:
                     contents.append(line)
         if flag == 0:
-            print("No such word found")
-            return
+            raise NoSuchWordFoundError('No such word found.')
 
         with open(WordsConfig.WORDS_FILE_PATH, 'w') as f:
             f.writelines(contents)
 
-        print(WordsConfig.SUCCESS_UPDATE.format(new_word, new_definition))
-
         # load new contents
         self.words = read_words()
 
-    def delete_word(self):
-        system('cls')
-        word = input(WordsConfig.DELETE_PROMPT)
+    def delete_word_and_write_to_file(self, word):
         contents = []
         flag = 0
         with open(WordsConfig.WORDS_FILE_PATH, 'r') as f:
@@ -117,11 +131,9 @@ class Words:
                 else:
                     contents.append(line)
         if flag == 0:
-            print("No such word found")
-            return
+            raise NoSuchWordFoundError('No such word found.')
 
         with open(WordsConfig.WORDS_FILE_PATH, 'w') as f:
             f.writelines(contents)
 
-        print(WordsConfig.SUCCESS_DELETE.format(word))
         self.words = read_words()

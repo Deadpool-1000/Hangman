@@ -1,15 +1,15 @@
 from os import system
 from typing import Callable
-from src.player.user import User
+from src.user.baseuser import BaseUser
 from src.hangman.hangman import Hangman
-from src.db.players.PlayerDAO import PlayerDAO
+from src.DBUtils.players.PlayerDAO import PlayerDAO
 from src.config.prompts.prompts_config import PromptConfig
 from src.config.user.user_config import UserConfig
 from src.utils.utils import menu, format_date, input_number_of_rounds, input_difficulty_level
 from src.leaderboard.leaderboard import Leaderboard
 
 
-class Player(User):
+class Player(BaseUser):
     """
         A class that represents player of the game
     """

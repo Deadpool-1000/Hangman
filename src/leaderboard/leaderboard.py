@@ -1,6 +1,6 @@
 import logging
 from os import system
-from src.db.players.PlayerDAO import PlayerDAO
+from src.DBUtils.players.PlayerDAO import PlayerDAO
 from src.utils.utils import format_date
 from src.config.leaderboard.leaderboard_config import LeaderBoardConfig
 

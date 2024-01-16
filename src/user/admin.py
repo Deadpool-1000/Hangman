@@ -1,4 +1,4 @@
-from src.player.player import Player
+from src.user.player import Player
 from src.utils.utils import menu
 from typing import Callable
 from src.config.prompts.prompts_config import PromptConfig
