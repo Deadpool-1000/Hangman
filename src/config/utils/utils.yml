@@ -1,8 +1,0 @@
-INPUT_USERNAME_PROMPT : "Username: "
-INPUT_PASSWORD_PROMPT : "Password: "
-EMPTY_UNAME_FOUND : Username can't be empty
-EMPTY_PASSWORD_FOUND : Password can't be empty
-INPUT_ROUND_PROMPT : "How many rounds do you want to play ?: "
-VALID_INPUT : "Please enter a valid input: "
-YOUR_CHOICE : "Your Choice: "
-SAFE_PASSWORD_PROMPT : "Please choose a safe password: "

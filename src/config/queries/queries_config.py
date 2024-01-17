@@ -20,6 +20,7 @@ class QueriesConfig:
     USER_WITH_UNAME = None
     UPDATE_PLAYER_SCORE = None
     GET_HIGH_SCORE = None
+    DBPATH = None
 
     @classmethod
     def load(cls):
@@ -39,3 +40,4 @@ class QueriesConfig:
             cls.USER_WITH_UNAME = data['USER_WITH_UNAME']
             cls.UPDATE_PLAYER_SCORE = data['UPDATE_PLAYER_SCORE']
             cls.GET_HIGH_SCORE = data['GET_HIGH_SCORE']
+            cls.DBPATH = data['DBPATH']

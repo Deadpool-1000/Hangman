@@ -3,12 +3,13 @@ import shortuuid
 import logging
 import hashlib
 from datetime import datetime
-from src.config.prompts.prompts_config import PromptConfig
 from src.utils.exception import AlreadyExistsError
 from src.utils.exception import InvalidUsernameOrPasswordError
-from src.utils.named_tuples import Player, Leaderboard
+from src.utils.named_tuples import Player
 from src.config.logs.logs_config import LogsConfig
 from src.config.queries.queries_config import QueriesConfig
+from src.config.user.user_config import UserConfig
+
 
 logger = logging.getLogger("main.database")
 
@@ -20,7 +21,7 @@ class PlayerDAO:
     Can be used as context managers
     """
     def __init__(self):
-        self.connection = sqlite3.connect(PromptConfig.DBPATH)
+        self.connection = sqlite3.connect(QueriesConfig.DBPATH)
         self.cur = self.connection.cursor()
         # Create table only once
         if self.singleton != 0:
@@ -82,9 +83,6 @@ class PlayerDAO:
         return [dict(uname=player_[0], high_score=player_[1], scored_on=player_[2]) for player_ in rws.fetchall()]
 
     def update_player_stats(self, total_games_played: int, total_games_won: int, user_id: str):
-        self.cur.execute(QueriesConfig.UPDATE_PLAYER_STATS, (total_games_played, total_games_won, user_id))
-
-    def update_player_score(self, total_games_played: int, total_games_won: int, user_id: str):
         self.cur.execute(QueriesConfig.UPDATE_PLAYER_SCORE, (total_games_played, total_games_won, user_id))
 
     def get_user_details(self, user_id):
@@ -99,7 +97,7 @@ class PlayerDAO:
 
     def is_admin(self, user_id) -> bool:
         user = self.find_user_with_userid(user_id)
-        return user[0][3] == 'admin'
+        return user[0][3] == UserConfig.ADMIN
 
     def __enter__(self):
         return self
