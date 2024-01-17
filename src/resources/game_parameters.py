@@ -11,6 +11,9 @@ blp = Blueprint("Game-Parameters", "game_parameters", description="Get Available
 @blp.route("/game_parameters")
 class GameParameters(MethodView):
     @jwt_required()
+    @blp.doc(parameters=[
+        {'name': 'Authorization', 'in': 'header', 'description': 'Authorization: Bearer <access_token>',
+         'required': 'true'}])
     def get(self):
         with GameConfigDAO() as g_dao:
             round_options = g_dao.get_game_params(ApiConfig.GAME_PARAMS_ROUND)
