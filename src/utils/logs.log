@@ -143,19 +143,19 @@
 20-13-2023 17:13:53 DEBUG    [PlayerDAO.py:52] [('Deadpool', 'abc', 'player')]
 20-13-2023 17:13:53 DEBUG    [main.py:38] Player(name='Deadpool', role='player')
 20-13-2023 17:13:53 DEBUG    [player.py:16] Player Deadpool created
-20-13-2023 17:13:58 DEBUG    [play.py:10] User choice: a
-20-14-2023 17:14:00 DEBUG    [play.py:10] User choice: q
-20-14-2023 17:14:01 DEBUG    [play.py:10] User choice: q
-20-14-2023 17:14:03 DEBUG    [play.py:10] User choice: q
+20-13-2023 17:13:58 DEBUG    [play.py:10] BaseUser choice: a
+20-14-2023 17:14:00 DEBUG    [play.py:10] BaseUser choice: q
+20-14-2023 17:14:01 DEBUG    [play.py:10] BaseUser choice: q
+20-14-2023 17:14:03 DEBUG    [play.py:10] BaseUser choice: q
 20-15-2023 17:15:53 DEBUG    [PlayerDAO.py:52] [('Deadpool', 'abc', 'player')]
 20-15-2023 17:15:53 DEBUG    [main.py:38] Player(name='Deadpool', role='player')
 20-15-2023 17:15:53 DEBUG    [player.py:16] Player Deadpool created
-20-15-2023 17:15:57 DEBUG    [play.py:10] User choice: g
-20-15-2023 17:15:59 DEBUG    [play.py:10] User choice: q
+20-15-2023 17:15:57 DEBUG    [play.py:10] BaseUser choice: g
+20-15-2023 17:15:59 DEBUG    [play.py:10] BaseUser choice: q
 20-16-2023 17:16:13 DEBUG    [PlayerDAO.py:52] [('Deadpool', 'abc', 'player')]
 20-16-2023 17:16:13 DEBUG    [main.py:38] Player(name='Deadpool', role='player')
 20-16-2023 17:16:13 DEBUG    [player.py:16] Player Deadpool created
-20-16-2023 17:16:19 DEBUG    [play.py:10] User choice: p
+20-16-2023 17:16:19 DEBUG    [play.py:10] BaseUser choice: p
 20-16-2023 17:16:19 INFO     [words.py:9] Word Section accessed
 20-16-2023 17:16:55 DEBUG    [hangman.py:43] Deadpool scored 0
 20-16-2023 17:16:55 DEBUG    [hangman.py:97] <Player Deadpool Scores:[] Wins:0 />

@@ -15,5 +15,10 @@ class AlreadyExistsError(Exception):
 class InvalidUsernameOrPasswordError(Exception):
     pass
 
+
 class OutOfWordsError(Exception):
+    pass
+
+
+class NoSuchWordFoundError(Exception):
     pass

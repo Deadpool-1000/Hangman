@@ -1,1 +1,3 @@
 *.tox
+add_data.py
+.env
