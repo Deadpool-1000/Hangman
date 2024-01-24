@@ -18,6 +18,8 @@ flask-jwt-extended = "*"
 flask-smorest = "*"
 shortuuid = "*"
 marshmallow = "*"
+fastapi = "*"
+uvicorn = {extras = ["standard"], version = "*"}
 
 [dev-packages]
 

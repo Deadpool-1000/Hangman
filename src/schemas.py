@@ -1,53 +1,63 @@
-from marshmallow import Schema, fields, validate
+import re
+from pydantic import BaseModel, Field, field_validator
+pwd_regexp = r"^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$"
 
 
-class UserSchema(Schema):
-    uname = fields.Str(required=True)
-    password = fields.Str(required=True, validate=validate.Regexp("^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$"))
+class UserSchema(BaseModel):
+    uname: str
+    password: str = Field(min_length=8)
+
+    @classmethod
+    @field_validator("password")
+    def regex_match(cls, p: str) -> str:
+        re_for_pw: re.Pattern[str] = re.compile(pwd_regexp)
+        if not re_for_pw.match(p):
+            raise ValueError("invalid password")
+        return p
 
 
-class UserProfileSchema(Schema):
-    id = fields.Str(required=True)
-    uname = fields.Str(required=True)
-    high_score = fields.Int(required=True)
-    total_game = fields.Int(required=True)
-    total_games_won = fields.Int(required=True)
-    high_score_created_on = fields.Str(required=True)
+class UserProfileSchema(BaseModel):
+    id: str
+    uname: str
+    high_score: int = Field(min=0)
+    total_game: int = Field(min=0)
+    total_games_won: int = Field(min=0)
+    high_score_created_on: str
 
 
-class NewWordSchema(Schema):
-    word = fields.Str(required=True)
-    definition = fields.Str(required=True)
-    source = fields.Str(required=True)
+class NewWordSchema(BaseModel):
+    word: str
+    definition: str
+    source: str
 
 
-class UpdateWordSchema(Schema):
-    new_word = fields.Str(required=True)
-    new_definition = fields.Str(required=True)
+class UpdateWordSchema(BaseModel):
+    new_word: str
+    new_definition: str
 
 
-class DeleteWordSchema(Schema):
-    word = fields.Str(required=True)
+class DeleteWordSchema(BaseModel):
+    word: str
 
 
-class RandomWordSchema(Schema):
-    id = fields.Int(required=True)
-    part_of_speech = fields.Str(required=True)
-    word = fields.Str(required=True)
-    hint = fields.Str(required=True)
+class RandomWordSchema(BaseModel):
+    id: str
+    part_of_speech: str
+    word: str
+    hint: str
 
 
-class LeaderboardSchema(Schema):
-    uname = fields.Str(required=True)
-    high_score = fields.Int(required=True)
-    scored_on = fields.Str(required=True)
+class LeaderboardSchema(BaseModel):
+    uname: str
+    high_score: str
+    scored_on: str
 
 
-class ScoreSchema(Schema):
-    score = fields.Int(required=True)
-    total_games_played = fields.Int(required=True)
-    total_games_won = fields.Int(required=True)
+class ScoreSchema(BaseModel):
+    score: int
+    total_games_played: int = Field(min=0)
+    total_games_won: int = Field(min=0)
 
 
-class WordDifficultySchema(Schema):
-    difficulty = fields.Int(required=True)
+class WordDifficultySchema(BaseModel):
+    difficulty: int = Field(min=8)

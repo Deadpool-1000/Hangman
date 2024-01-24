@@ -15,6 +15,7 @@ class Words:
     def __init__(self):
         self.word_set = set()
         if self.singleton != 0:
+            print("Word object created.")
             self.words = read_words()
             self.singleton -= 1
 
