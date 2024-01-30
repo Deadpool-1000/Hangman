@@ -20,6 +20,8 @@ shortuuid = "*"
 marshmallow = "*"
 fastapi = "*"
 uvicorn = {extras = ["standard"], version = "*"}
+python-jose = {extras = ["cryptography"], version = "*"}
+python-multipart = "*"
 
 [dev-packages]
 

@@ -3,10 +3,10 @@ from fastapi import APIRouter
 from src.DBUtils.players.PlayerDAO import PlayerDAO
 from src.schemas import ScoreSchema
 
-score_router = APIRouter()
+score_router = APIRouter(tags=['Score'])
 
 
-@score_router.put('/score')
+@score_router.put('/score', summary='Update score')
 def update_score(score_data: ScoreSchema):
     # user_id = get_jwt_identity()
     # with PlayerDAO() as p_dao:

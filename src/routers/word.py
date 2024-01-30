@@ -1,31 +1,37 @@
+from jose import jwt, JWTError
 from fastapi import APIRouter, Depends, HTTPException
+from starlette import status
 from src.word_section.words import Words
 from src.utils.exception import OutOfWordsError, NoSuchWordFoundError
 from src.schemas import NewWordSchema, UpdateWordSchema, DeleteWordSchema, RandomWordSchema, WordDifficultySchema
 from src.DBUtils.game_config.GameConfigDAO import GameConfigDAO
+from src.utils.rbac import check_admin, get_token
 
 
 def get_words_dao():
     return Words()
 
 
-word_router = APIRouter(prefix='/words')
+word_router = APIRouter(prefix='/words', tags=['Words'])
+
+JWT_SECRET = "fIqrMcrIKjZqsEZdfwne82n8YsL6F3K0"
+JWT_ALGO = "HS256"
 
 
-@word_router.get(path='')
+@word_router.get(path='', dependencies=[Depends(check_admin)])
 def get(words_dao=Depends(get_words_dao)):
     # Get words
     return words_dao.words
 
 
-@word_router.post(path='')
+@word_router.post(path='', dependencies=[Depends(check_admin)])
 def post(word_data: NewWordSchema, words_dao=Depends(get_words_dao)):
     # New word
     words_dao.add_word_and_write_to_file(**word_data.model_dump())
     return {"message": "Word created successfully."}
 
 
-@word_router.patch(path='')
+@word_router.patch(path='', dependencies=[Depends(check_admin)])
 def put(word_data: UpdateWordSchema, words_dao=Depends(get_words_dao)):
     # Update word
     try:
@@ -35,7 +41,7 @@ def put(word_data: UpdateWordSchema, words_dao=Depends(get_words_dao)):
         raise HTTPException(404, detail="No such word found.")
 
 
-@word_router.delete(path='')
+@word_router.delete(path='', dependencies=[Depends(check_admin)])
 def delete(word_data: DeleteWordSchema, words_dao=Depends(get_words_dao)):
     # Delete word
     try:
@@ -46,7 +52,7 @@ def delete(word_data: DeleteWordSchema, words_dao=Depends(get_words_dao)):
 
 
 @word_router.get(path='/random_word')
-def get(word_difficulty_data: WordDifficultySchema, words_dao=Depends(get_words_dao)):
+def get(word_difficulty_data: WordDifficultySchema, words_dao=Depends(get_words_dao), user=Depends(get_token)):
     difficulty = word_difficulty_data.model_dump()['difficulty']
 
     with GameConfigDAO() as g_dao:

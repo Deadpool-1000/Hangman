@@ -22,6 +22,7 @@ class PlayerDAO:
     """
     def __init__(self):
         self.connection = sqlite3.connect(QueriesConfig.DBPATH)
+        self.connection.row_factory = sqlite3.Row
         self.cur = self.connection.cursor()
         # Create table only once
         if self.singleton != 0:
@@ -39,7 +40,7 @@ class PlayerDAO:
 
     def find_user_with_uname(self, uname: str):
         rws = self.cur.execute(QueriesConfig.USER_WITH_UNAME, (uname, ))
-        return rws.fetchall()
+        return [dict(r) for r in rws.fetchall()]
 
     def signup(self, uname: str, password: str):
         # Already exists
@@ -54,25 +55,29 @@ class PlayerDAO:
         self.cur.execute(QueriesConfig.INSERT_INTO_PLAYERS, (user_id, datetime.now()))
 
     def login(self, uname: str, password: str):
-        # ((user_id, uname, password, role),)
         player = self.find_user_with_uname(uname)
+
         # Invalid Username
-        if not player:
+        if len(player) == 0:
             logger.debug(LogsConfig.INVALID_USERNAME_OR_PASSWORD)
             logger.debug('Invalid Username')
             raise InvalidUsernameOrPasswordError(LogsConfig.INVALID_USERNAME_OR_PASSWORD)
 
+        found_player = player[0]
+
         # Invalid password
-        if player[0][2] != hashlib.sha256(password.encode()).hexdigest():
+        if found_player['password'] != hashlib.sha256(password.encode()).hexdigest():
             logger.debug(LogsConfig.INVALID_USERNAME_OR_PASSWORD)
             logger.debug('Invalid password')
             raise InvalidUsernameOrPasswordError(LogsConfig.INVALID_USERNAME_OR_PASSWORD)
 
-        rws = self.cur.execute(QueriesConfig.PLAYER_DATA, (player[0][0],))
-        player_data = rws.fetchall()
-        # ((user_id, high_score, total_game, total_games_won, high_score_created_on),)
-        print(player_data)
-        logged_in_player = Player(id=player[0][0], name=player[0][1], role=player[0][3], high_score=player_data[0][1], highscore_created_on=player_data[0][4], total_games_played=player_data[0][2], total_games_won=player_data[0][3])
+        rws = self.cur.execute(QueriesConfig.PLAYER_DATA, (found_player['user_id'],))
+        logged_in_player = dict(rws.fetchone())
+
+        logged_in_player.update({
+            'role': found_player['role']
+        })
+
         return logged_in_player
 
     def update_high_score(self, user_id: str, new_high_score: float):
@@ -80,16 +85,17 @@ class PlayerDAO:
 
     def get_leaderboard(self):
         rws = self.cur.execute(QueriesConfig.GET_LEADERBOARD)
-        return [dict(uname=player_[0], high_score=player_[1], scored_on=player_[2]) for player_ in rws.fetchall()]
+        return [dict(r) for r in rws.fetchall()]
 
     def update_player_stats(self, total_games_played: int, total_games_won: int, user_id: str):
         self.cur.execute(QueriesConfig.UPDATE_PLAYER_SCORE, (total_games_played, total_games_won, user_id))
 
     def get_user_details(self, user_id):
         rws = self.cur.execute(QueriesConfig.PLAYER_DATA, (user_id,))
-        user_data = rws.fetchall()
+        user_data = [dict(r) for r in rws.fetchall()][0]
+
         # ((user_id, uname, high_score, total_game, total_games_won, high_score_created_on),)
-        return user_data[0]
+        return user_data
 
     def get_high_score(self, user_id):
         rws = self.cur.execute(QueriesConfig.GET_HIGH_SCORE, (user_id,))
