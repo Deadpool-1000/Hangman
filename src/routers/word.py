@@ -1,11 +1,11 @@
-from jose import jwt, JWTError
 from fastapi import APIRouter, Depends, HTTPException
-from starlette import status
-from src.word_section.words import Words
-from src.utils.exception import OutOfWordsError, NoSuchWordFoundError
-from src.schemas import NewWordSchema, UpdateWordSchema, DeleteWordSchema, RandomWordSchema, WordDifficultySchema
+from fastapi import APIRouter, Depends, HTTPException
+
 from src.DBUtils.game_config.GameConfigDAO import GameConfigDAO
-from src.utils.rbac import check_admin, get_token
+from src.schemas import NewWordSchema, UpdateWordSchema, DeleteWordSchema, WordDifficultySchema
+from src.utils.exception import OutOfWordsError, NoSuchWordFoundError
+from src.utils.jwt_helper import check_admin, get_token
+from src.word_section.words import Words
 
 
 def get_words_dao():
@@ -61,7 +61,8 @@ def get(word_difficulty_data: WordDifficultySchema, words_dao=Depends(get_words_
         difficulty_options = [difficulty_parameter[1] for difficulty_parameter in difficulty_parameters]
 
     if difficulty not in difficulty_options:
-        raise HTTPException(400, detail='Please ensure the difficulty options is according to difficulty options available')
+        raise HTTPException(400,
+                            detail='Please ensure the difficulty options is according to difficulty options available')
 
     try:
         random_word = words_dao.get_random_word(difficulty)

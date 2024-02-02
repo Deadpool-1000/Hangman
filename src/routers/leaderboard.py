@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Depends
 
 from src.DBUtils.players.PlayerDAO import PlayerDAO
-from src.utils.rbac import get_token
+from src.utils.jwt_helper import get_token
 
 leaderboard_router = APIRouter(tags=['Leaderboard'])
 

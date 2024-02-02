@@ -1,4 +1,24 @@
 ROLE_ADMIN: 0
 ROLE_USER: 1
-GAME_PARAMS_DIFFICULTY : DIFFICULTY
-GAME_PARAMS_ROUND : ROUND
+GAME_PARAMS_DIFFICULTY: DIFFICULTY
+GAME_PARAMS_ROUND: ROUND
+LOGIN_SUMMARY : Create access token for user
+INVALID_USERNAME_OR_PASSWORD_MESSAGE : Invalid username or password
+DATABASE_ERROR_MESSAGE : There was some problem. Try again later.
+ADMIN : superman
+PLAYER : BATMAN
+GET_PROFILE_SUMMARY : Get your profile.
+SIGNUP_SUCCESS_MESSAGE : User Registered successfully.
+USERNAME_TAKEN_MESSAGE : Username taken.
+APPLICATION_ERROR_MESSAGE : There was some problem. Try again later.
+LOGOUT_SUCCESS_MESSAGE : Logout Successful.
+
+INVALID_ROLE_MESSAGE : Invalid role provided
+INVALID_JWT_PROVIDED_MESSAGE : Invalid JWT provided
+ADMIN_ONLY_MESSAGE : You cannot access this resource.
+TOKEN_REVOKED_MESSAGE : Token Revoked.
+TOKEN_PREFIX :  jwt
+
+PWD_REGEXP: ^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$
+
+

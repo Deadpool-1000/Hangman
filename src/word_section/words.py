@@ -1,7 +1,8 @@
-import random
 import math
-from src.utils.exception import OutOfWordsError, NoSuchWordFoundError
+import random
+
 from src.config.words.words_config import WordsConfig
+from src.utils.exception import OutOfWordsError, NoSuchWordFoundError
 from src.utils.words_util import read_words
 
 
@@ -26,9 +27,9 @@ class Words:
             raise OutOfWordsError(WordsConfig.OUT_OF_WORDS)
 
         # Random word generation
-        my_num = math.floor(random.random()*len(words_with_min_difficulty))
+        my_num = math.floor(random.random() * len(words_with_min_difficulty))
         while my_num in self.word_set:
-            my_num = math.floor(random.random()*len(words_with_min_difficulty))
+            my_num = math.floor(random.random() * len(words_with_min_difficulty))
         self.word_set.add(my_num)
         return words_with_min_difficulty[my_num]
 

@@ -1,16 +1,13 @@
-import src.config.helper
 from fastapi import FastAPI
 
-from dotenv import load_dotenv
-
-from src.routers import user_router
-from src.routers import leaderboard_router
 from src.routers import game_params_router
+from src.routers import leaderboard_router
 from src.routers import score_router
+from src.routers import user_router
 from src.routers import word_router
+from src.config.helper import load_configurations
 
-
-load_dotenv()
+load_configurations()
 app = FastAPI()
 
 app.include_router(user_router)
@@ -21,9 +18,8 @@ app.include_router(word_router)
 
 
 # Test route
-@app.get('/')
+@app.get('/healthy')
 def index():
     return {
-        "message": "Hello World!"
+        "status": "healthy"
     }
-

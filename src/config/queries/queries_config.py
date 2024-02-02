@@ -1,5 +1,6 @@
-import yaml
 import os
+
+import yaml
 
 path_current_directory = os.path.dirname(__file__)
 QUERIES_CONFIG_PATH = os.path.join(path_current_directory, 'queries.yml')
@@ -40,4 +41,4 @@ class QueriesConfig:
             cls.USER_WITH_UNAME = data['USER_WITH_UNAME']
             cls.UPDATE_PLAYER_SCORE = data['UPDATE_PLAYER_SCORE']
             cls.GET_HIGH_SCORE = data['GET_HIGH_SCORE']
-            cls.DBPATH = data['DBPATH']
+            cls.DBPATH = os.path.join(path_current_directory, rf'..\..\..\{data["DBPATH"]}')

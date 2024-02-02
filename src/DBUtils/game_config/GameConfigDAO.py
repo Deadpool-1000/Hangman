@@ -1,4 +1,5 @@
 import sqlite3
+
 from src.config.queries.queries_config import QueriesConfig
 
 
@@ -8,12 +9,12 @@ class GameConfigDAO:
     Performs DB read operations on Game configurations.
     Can be used as context manager
     """
-    def __init__(self):
-        self.connection = sqlite3.connect(QueriesConfig.DBPATH)
-        self.cur = self.connection.cursor()
+
+    def __init__(self, conn):
+        self.cur = conn.cursor()
         if self.singleton != 0:
             self.cur.execute(QueriesConfig.CREATE_TABLE_QUERY)
-            self.connection.commit()
+            conn.commit()
             self.singleton -= 1
 
     def get_game_params(self, param) -> list[(sqlite3.Cursor, sqlite3.Cursor)]:

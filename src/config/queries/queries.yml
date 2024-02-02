@@ -1,15 +1,15 @@
-CREATE_TABLE_QUERY : CREATE TABLE IF NOT EXISTS game_config(config_id INTEGER PRIMARY KEY AUTOINCREMENT, config_name TEXT, config_key TEXT, config_value INTEGER)
-GAME_CONFIG_QUERY : SELECT * FROM game_config WHERE config_name=?
-CREATE_TABLE_AUTH : CREATE TABLE IF NOT EXISTS auth_table(user_id PRIMARY KEY,uname TEXT, password TEXT, role TEXT)
-CREATE_TABLE_PLAYER : CREATE TABLE IF NOT EXISTS players(user_id TEXT PRIMARY KEY, high_score REAL, total_game INTEGER, total_games_won INTEGER, high_score_created_on timestamp, FOREIGN KEY (user_id) REFERENCES auth_table(user_id))
-FIND_USER_QUERY : SELECT * FROM auth_table WHERE user_id=?
-INSERT_INTO_AUTH : INSERT INTO auth_table VALUES(?,?,?, ?)
-INSERT_INTO_PLAYERS : INSERT INTO players VALUES(?,0,0,0,?)
-PLAYER_DATA : SELECT p.user_id, a.uname, p.high_score, p.total_game, p.total_games_won, p.high_score_created_on FROM players p INNER JOIN auth_table a ON p.user_id=a.user_id WHERE p.user_id=?
-UPDATE_HIGH_SCORE : UPDATE players SET high_score = ?, high_score_created_on=?  WHERE user_id = ?
-GET_LEADERBOARD : SELECT a.uname,p.high_score,p.high_score_created_on from players p INNER JOIN auth_table a ON p.user_id=a.user_id ORDER BY high_score DESC,high_score_created_on DESC LIMIT 10
-UPDATE_PLAYER_STATS : UPDATE players SET total_game = ?, total_games_won=? WHERE user_id = ?
-USER_WITH_UNAME : SELECT * FROM auth_table WHERE uname=?
-UPDATE_PLAYER_SCORE : UPDATE players SET total_game=total_game+?, total_games_won=total_games_won+? WHERE user_id = ?
-GET_HIGH_SCORE : SELECT high_score FROM players WHERE user_id=?
-DBPATH: src\DBUtils\players\players.db
+CREATE_TABLE_QUERY: CREATE TABLE IF NOT EXISTS game_config(config_id INTEGER PRIMARY KEY AUTOINCREMENT, config_name TEXT, config_key TEXT, config_value INTEGER)
+GAME_CONFIG_QUERY: SELECT * FROM game_config WHERE config_name=?
+CREATE_TABLE_AUTH: CREATE TABLE IF NOT EXISTS auth_table(user_id PRIMARY KEY,uname TEXT UNIQUE, password TEXT, role TEXT)
+CREATE_TABLE_PLAYER: CREATE TABLE IF NOT EXISTS players(user_id TEXT PRIMARY KEY, high_score REAL, total_game INTEGER, total_games_won INTEGER, high_score_created_on timestamp, FOREIGN KEY (user_id) REFERENCES auth_table(user_id))
+FIND_USER_QUERY: SELECT * FROM auth_table WHERE user_id=?
+INSERT_INTO_AUTH: INSERT INTO auth_table VALUES(?,?,?, ?)
+INSERT_INTO_PLAYERS: INSERT INTO players VALUES(?,0,0,0,?)
+PLAYER_DATA: SELECT p.user_id, a.uname, p.high_score, p.total_game, p.total_games_won, p.high_score_created_on FROM players p INNER JOIN auth_table a ON p.user_id=a.user_id WHERE p.user_id=?
+UPDATE_HIGH_SCORE: UPDATE players SET high_score = ?, high_score_created_on=?  WHERE user_id = ?
+GET_LEADERBOARD: SELECT a.uname,p.high_score,p.high_score_created_on from players p INNER JOIN auth_table a ON p.user_id=a.user_id ORDER BY high_score DESC,high_score_created_on DESC LIMIT 10
+UPDATE_PLAYER_STATS: UPDATE players SET total_game = ?, total_games_won=? WHERE user_id = ?
+USER_WITH_UNAME: SELECT * FROM auth_table WHERE uname=?
+UPDATE_PLAYER_SCORE: UPDATE players SET total_game=total_game+?, total_games_won=total_games_won+? WHERE user_id = ?
+GET_HIGH_SCORE: SELECT high_score FROM players WHERE user_id=?
+DBPATH: src\DBUtils\data\hangman.db

@@ -1,5 +1,6 @@
-import yaml
 import os
+
+import yaml
 
 path_current_directory = os.path.dirname(__file__)
 LOG_CONFIG_PATH = os.path.join(path_current_directory, 'logs.yml')

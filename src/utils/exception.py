@@ -1,5 +1,3 @@
-
-
 class InvalidInput(Exception):
     pass
 
@@ -22,3 +20,14 @@ class OutOfWordsError(Exception):
 
 class NoSuchWordFoundError(Exception):
     pass
+
+
+class ApplicationError(Exception):
+    def __init__(self, code, message):
+        self.code = code
+        self.message = message
+
+
+class DatabaseException(Exception):
+    pass
+

@@ -2,8 +2,7 @@ from fastapi import APIRouter, Depends
 
 from src.DBUtils.game_config.GameConfigDAO import GameConfigDAO
 from src.config.api.api_config import ApiConfig
-from src.utils.rbac import get_token
-
+from src.utils.jwt_helper import get_token
 
 game_params_router = APIRouter(tags=['Parameters'])
 

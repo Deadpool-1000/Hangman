@@ -1,10 +1,13 @@
 import re
+
 from pydantic import BaseModel, Field, field_validator
+from pydantic_settings import BaseSettings
+
 pwd_regexp = r"^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$"
 
 
 class UserSchema(BaseModel):
-    uname: str
+    username: str
     password: str = Field(min_length=8)
 
     @classmethod

@@ -1,5 +1,6 @@
-import requests
 import os
+
+import requests
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -21,4 +22,3 @@ def send_simple_message():
 
 
 send_simple_message()
-
