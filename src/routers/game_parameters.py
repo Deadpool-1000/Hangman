@@ -1,19 +1,13 @@
 from fastapi import APIRouter, Depends
+from starlette import status
 
-from src.DBUtils.game_config.GameConfigDAO import GameConfigDAO
-from src.config.api.api_config import ApiConfig
+from src.controllers import GameParamsController
 from src.utils.jwt_helper import get_token
 
 game_params_router = APIRouter(tags=['Parameters'])
 
 
-@game_params_router.get("/game_parameters", dependencies=[Depends(get_token)])
+@game_params_router.get("/game-params", dependencies=[Depends(get_token)], status_code=status.HTTP_200_OK)
 def get_game_params():
-    with GameConfigDAO() as g_dao:
-        round_options = g_dao.get_game_params(ApiConfig.GAME_PARAMS_ROUND)
-        difficulty_options = g_dao.get_game_params(ApiConfig.GAME_PARAMS_DIFFICULTY)
-
-        return {
-            ApiConfig.GAME_PARAMS_ROUND: round_options,
-            ApiConfig.GAME_PARAMS_DIFFICULTY: difficulty_options
-        }
+    game_params_data = GameParamsController.get_game_params()
+    return game_params_data

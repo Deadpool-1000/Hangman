@@ -30,4 +30,3 @@ class ApplicationError(Exception):
 
 class DatabaseException(Exception):
     pass
-

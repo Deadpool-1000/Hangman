@@ -1,8 +1,7 @@
 import sqlite3
 
-from src.DBUtils.players.PlayerDAO import PlayerDAO
-from src.handlers.base_handler.base_handler import BaseHandler
-from src.DBUtils.database.database import Database
+from src.DBUtils import Database, PlayerDAO
+from src.handlers import BaseHandler
 from src.utils.exception import ApplicationError
 
 

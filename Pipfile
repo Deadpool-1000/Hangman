@@ -19,8 +19,8 @@ flask-smorest = "*"
 shortuuid = "*"
 marshmallow = "*"
 fastapi = "*"
-uvicorn = {extras = ["standard"] }
-python-jose = {extras = ["cryptography"] }
+uvicorn = { extras = ["standard"] }
+python-jose = { extras = ["cryptography"] }
 python-multipart = "*"
 pydantic-settings = "*"
 httpx = "*"

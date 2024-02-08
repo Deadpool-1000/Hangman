@@ -1,7 +1,6 @@
 import re
 
 from pydantic import BaseModel, Field, field_validator
-from pydantic_settings import BaseSettings
 
 pwd_regexp = r"^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$"
 

@@ -1,13 +1,13 @@
 from fastapi import APIRouter, Depends
+from starlette import status
 
-from src.DBUtils.players.PlayerDAO import PlayerDAO
+from src.controllers import LeaderboardController
 from src.utils.jwt_helper import get_token
 
 leaderboard_router = APIRouter(tags=['Leaderboard'])
 
 
-@leaderboard_router.get('/leaderboard', dependencies=[Depends(get_token)])
+@leaderboard_router.get('/leaderboard', dependencies=[Depends(get_token)], status_code=status.HTTP_200_OK)
 def get_leaderboard():
-    with PlayerDAO() as p_dao:
-        leader_board = p_dao.get_leaderboard()
-        return leader_board
+    leaderboard = LeaderboardController.get_leaderboard()
+    return leaderboard

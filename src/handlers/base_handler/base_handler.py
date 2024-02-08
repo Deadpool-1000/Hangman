@@ -10,6 +10,6 @@ class BaseHandler:
         return self
 
     def __exit__(self, exc_type, exc_val, exc_tb):
+        self.db.close()
         if exc_type or exc_tb or exc_val:
             return False
-        self.db.close()

@@ -1,8 +1,8 @@
 from fastapi import HTTPException
 from starlette import status
 
-from src.DBUtils.database.database import Database
-from src.handlers.user.signup_handler import SignupHandler
+from src.DBUtils import Database
+from src.handlers import SignupHandler
 from src.utils.exception import ApplicationError, DatabaseException
 
 

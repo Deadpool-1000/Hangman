@@ -1,10 +1,10 @@
 import hashlib
-import sqlite3
 import logging
-from src.DBUtils.database import Database
-from src.DBUtils.players.PlayerDAO import PlayerDAO
+import sqlite3
+
+from src.DBUtils import Database, PlayerDAO
+from src.handlers import BaseHandler
 from src.utils.exception import ApplicationError, DatabaseException
-from src.handlers.base_handler.base_handler import BaseHandler
 
 logger = logging.getLogger('main.login_handler')
 

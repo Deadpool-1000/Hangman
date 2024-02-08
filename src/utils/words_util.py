@@ -1,11 +1,11 @@
-from src.config.words.words_config import WordsConfig
+from src.config.words.words_config import get_word_config
+
+word_config = get_word_config()
 
 
 def read_words():
-    with open(rf'{WordsConfig.WORDS_FILE_PATH}', 'r') as f:
+    with open(rf'{word_config.WORDS_FILE_PATH}', 'r') as f:
         temp = [line.split('|') for line in f.readlines()]
-        if len(temp) == 0:
-            raise Exception('No words available')
         words = [{
             "id": ind,
             "word": word[0],
