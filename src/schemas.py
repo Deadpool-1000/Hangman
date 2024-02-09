@@ -1,6 +1,7 @@
 import re
 
-from pydantic import BaseModel, Field, field_validator
+from pydantic import BaseModel, Field, field_validator, ValidationError
+
 
 pwd_regexp = r"^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$"
 
@@ -9,12 +10,12 @@ class UserSchema(BaseModel):
     username: str
     password: str = Field(min_length=8)
 
-    @classmethod
     @field_validator("password")
+    @classmethod
     def regex_match(cls, p: str) -> str:
         re_for_pw: re.Pattern[str] = re.compile(pwd_regexp)
         if not re_for_pw.match(p):
-            raise ValueError("invalid password")
+            raise ValidationError("invalid password")
         return p
 
 

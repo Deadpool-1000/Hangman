@@ -6,7 +6,7 @@ from starlette import status
 from src.controllers import WordController
 from src.handlers.word.word_handler import WordHandler
 from src.schemas import NewWordSchema, UpdateWordSchema, DeleteWordSchema, WordDifficultySchema
-from src.utils.jwt_helper import check_admin
+from src.utils.jwt_helper import check_admin, get_token
 
 
 def get_word_handler():
@@ -48,7 +48,7 @@ def delete(delete_word_data: DeleteWordSchema, word_controller=Depends(get_word_
     return success_message
 
 
-@word_router.post(path='/random_word', status_code=status.HTTP_200_OK)
+@word_router.post(path='/random_word', status_code=status.HTTP_200_OK, dependencies=[Depends(get_token)])
 def get(word_difficulty_data: WordDifficultySchema, word_controller=Depends(get_word_controller)):
     # Random word
     random_word = word_controller.random_word(word_difficulty_data)

@@ -42,8 +42,8 @@ class WordController:
                     raise ApplicationError(code=400,
                                            message='Please ensure the difficulty options is according to difficulty options available')
 
-                random_word = self.word_handler.get_random_word(difficulty)
-                return random_word
+            random_word = self.word_handler.get_random_word(difficulty)
+            return random_word
 
         except ApplicationError as ae:
             raise HTTPException(ae.code, detail=ae.message)
