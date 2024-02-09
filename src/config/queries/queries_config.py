@@ -39,9 +39,7 @@ class TestingEnvironment(QueriesConfig):
 
 @lru_cache
 def get_queries_config():
-    print(settings.env)
-    if settings.env == 'TEST':
-        print("here")
+    if settings.run_env == 'TEST':
         return TestingEnvironment()
     else:
         return QueriesConfig()
