@@ -4,14 +4,22 @@ from fastapi.exceptions import RequestValidationError
 from starlette import status
 from starlette.responses import JSONResponse
 
+from src.utils.log.logger import initialize_logging
 from src.routers import game_params_router
 from src.routers import leaderboard_router
 from src.routers import score_router
 from src.routers import user_router
 from src.routers import word_router
+from src.utils.init_db import init_db
 
 
 app = FastAPI()
+
+
+@app.on_event('startup')
+def initialize_database():
+    init_db()
+
 
 # TODO add response validations on every route
 

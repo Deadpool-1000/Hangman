@@ -5,6 +5,7 @@ CREATE_TABLE_PLAYER: CREATE TABLE IF NOT EXISTS players(user_id TEXT PRIMARY KEY
 FIND_USER_QUERY: SELECT * FROM auth_table WHERE user_id=?
 INSERT_INTO_AUTH: INSERT INTO auth_table VALUES(?,?,?, ?)
 INSERT_INTO_PLAYERS: INSERT INTO players VALUES(?,0,0,0,?)
+INSERT_INTO_GAME_CONFIG: INSERT INTO game_config VALUES(?, ?, ? , ?)
 PLAYER_DATA: SELECT p.user_id, a.uname, p.high_score, p.total_game, p.total_games_won, p.high_score_created_on FROM players p INNER JOIN auth_table a ON p.user_id=a.user_id WHERE p.user_id=?
 UPDATE_HIGH_SCORE: UPDATE players SET high_score = ?, high_score_created_on=?  WHERE user_id = ?
 GET_LEADERBOARD: SELECT a.uname,p.high_score,p.high_score_created_on from players p INNER JOIN auth_table a ON p.user_id=a.user_id ORDER BY high_score DESC,high_score_created_on DESC LIMIT 10
@@ -12,4 +13,5 @@ UPDATE_PLAYER_STATS: UPDATE players SET total_game = ?, total_games_won=? WHERE 
 USER_WITH_UNAME: SELECT * FROM auth_table WHERE uname=?
 UPDATE_PLAYER_SCORE: UPDATE players SET total_game=total_game+?, total_games_won=total_games_won+? WHERE user_id = ?
 GET_HIGH_SCORE: SELECT high_score FROM players WHERE user_id=?
+UPDATE_GAME_CONFIG: UPDATE game_config SET config_value=? WHERE config_key=?
 DBPATH: src\DBUtils\data\hangman.db

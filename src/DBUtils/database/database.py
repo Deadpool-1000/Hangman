@@ -1,8 +1,12 @@
+import logging
 import sqlite3
 
 from src.config import get_queries_config
 
+
 queries_config = get_queries_config()
+
+logger = logging.getLogger('main.database')
 
 
 # TODO can also make this class Abstract
@@ -11,10 +15,11 @@ class Database:
         self.connection = None
 
     def connect(self):
-        print(f"Connecting to {queries_config.DBPATH}..........")
+        logger.info(f"Connecting to {queries_config.DBPATH}..........")
         self.connection = sqlite3.connect(queries_config.DBPATH)
         self.connection.row_factory = sqlite3.Row
 
     def close(self):
-        self.connection.commit()
-        self.connection.close()
+        if self.connection:
+            self.connection.commit()
+            self.connection.close()

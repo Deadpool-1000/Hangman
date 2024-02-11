@@ -1,4 +1,5 @@
-abate|verb|to reduce in amount, degree, intensity, etc.; lessen; diminish|http://www.dictionary.com/browse/abate
+euphemism|noun|A feeling of sadness usually for a long time.|http://www.dictionary.com/browse
+.com/browse/abate
 abbreviate|verb|to shorten (a word or phrase) by omitting letters, substituting shorter forms, etc., so that the shortened form can represent the whole word or phrase, as ft. for foot, ab. for about, R.I. for Rhode Island, NW for Northwest, or Xn for Christian.|http://www.dictionary.com/browse/abbreviate
 abide|verb|to remain; continue; stay|http://www.dictionary.com/browse/abide
 abnormally|adjective|not normal, average, typical, or usual; deviating from a standard|http://www.dictionary.com/browse/abnormally
@@ -3724,3 +3725,4 @@ yearningly|noun|deep longing, especially when accompanied by tenderness or sadne
 yieldingly|adjective|inclined to give in; submissive; compliant|http://www.dictionary.com/browse/yieldingly
 youthfully|adjective|characterized by youth; young.|http://www.dictionary.com/browse/youthfully
 zealously|adjective|full of, characterized by, or due to zeal; ardently active, devoted, or diligent.Synonyms|http://www.dictionary.com/browse/zealously
+euphemism|noun|an indirect word or expression that you use instead of a more direct one when you are talking about something that is unpleasant or embarrassing; the use of such expressions|http://www.dictionary.com/browse

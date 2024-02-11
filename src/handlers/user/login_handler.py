@@ -39,6 +39,6 @@ class LoginHandler(BaseHandler):
 
                 return found_user
 
-        except sqlite3.Error as db_error:
-            logger.error(f'Database error with {db_error}')
+        except sqlite3.Error:
+            logger.error(f'There was some problem connecting to database')
             raise DatabaseException('There was some problem while logging in.')

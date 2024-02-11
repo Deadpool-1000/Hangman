@@ -5,8 +5,7 @@ from src.config import get_queries_config
 queries_config = get_queries_config()
 
 
-class GameConfigDAO:
-    singleton = 1
+class GameParamsDAO:
     """
     Performs DB read operations on Game configurations.
     Can be used as context manager
@@ -14,10 +13,6 @@ class GameConfigDAO:
 
     def __init__(self, conn):
         self.cur = conn.cursor()
-        if self.singleton != 0:
-            self.cur.execute(queries_config.CREATE_TABLE_QUERY)
-            conn.commit()
-            self.singleton -= 1
 
     def get_game_params(self, param) -> list[(sqlite3.Cursor, sqlite3.Cursor)]:
         rws = self.cur.execute(queries_config.GAME_CONFIG_QUERY, (param,))
@@ -28,6 +23,9 @@ class GameConfigDAO:
 
     def get_difficulty_options(self):
         return self.get_game_params("DIFFICULTY")
+
+    def update_game_params(self, game_params):
+        self.cur.executemany(queries_config.UPDATE_GAME_CONFIG, game_params)
 
     def __enter__(self):
         return self

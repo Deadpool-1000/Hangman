@@ -23,7 +23,6 @@ def signup(user_data: UserSchema):
 @user_router.post('/login', summary=api_config.LOGIN_SUMMARY, status_code=status.HTTP_200_OK)
 async def login(user_data: OAuth2PasswordRequestForm = Depends()):
     token = LoginController.login(user_data)
-    print('token:------------>', token['access_token'])
     return token
 
 

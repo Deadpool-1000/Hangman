@@ -24,7 +24,8 @@ class LoginController:
                 user_auth_data = login_handler.login()
                 payload = {
                     'sub': user_auth_data['user_id'],
-                    'role': api_config.ADMIN if user_auth_data['role'] == 'admin' else api_config.PLAYER
+                    'role': user_auth_data['role']
+                    # 'role': api_config.ADMIN if user_auth_data['role'] == 'admin' else api_config.PLAYER
                 }
                 token = create_access_token(payload, expires_delta=timedelta(minutes=20))
 

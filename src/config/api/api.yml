@@ -12,6 +12,7 @@ SIGNUP_SUCCESS_MESSAGE: User Registered successfully.
 USERNAME_TAKEN_MESSAGE: Username taken.
 APPLICATION_ERROR_MESSAGE: There was some problem. Try again later.
 LOGOUT_SUCCESS_MESSAGE: Logout Successful.
+WEAK_PASSWORD: Weak password. Please ensure that your password is 8 characters long, at least one capital letter, one small letter, one number and one capital letter
 
 INVALID_ROLE_MESSAGE: Invalid role provided
 INVALID_JWT_PROVIDED_MESSAGE: Invalid JWT provided

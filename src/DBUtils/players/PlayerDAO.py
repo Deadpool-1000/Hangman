@@ -12,7 +12,6 @@ queries_config = get_queries_config()
 
 
 class PlayerDAO:
-    singleton = 1
     """
     Performs DB operations on Players.
     Can be used as context managers
@@ -20,13 +19,6 @@ class PlayerDAO:
 
     def __init__(self, connection: Connection):
         self.cur = connection.cursor()
-        # Create table only once
-        if self.singleton != 0:
-            logger.info("Three tables are created")
-            self.cur.execute(queries_config.CREATE_TABLE_AUTH)
-            self.cur.execute(queries_config.CREATE_TABLE_PLAYER)
-            connection.commit()
-            self.singleton -= 1
 
     def find_user_with_userid(self, user_id: str):
         """ Finds a user in the database with given username """

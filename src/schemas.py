@@ -1,9 +1,11 @@
 import re
+from typing import List
 
 from pydantic import BaseModel, Field, field_validator, ValidationError
 
+from src.config.api.api_config import get_api_config
 
-pwd_regexp = r"^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$"
+api_config = get_api_config()
 
 
 class UserSchema(BaseModel):
@@ -13,9 +15,9 @@ class UserSchema(BaseModel):
     @field_validator("password")
     @classmethod
     def regex_match(cls, p: str) -> str:
-        re_for_pw: re.Pattern[str] = re.compile(pwd_regexp)
+        re_for_pw: re.Pattern[str] = re.compile(api_config.PWD_REGEXP)
         if not re_for_pw.match(p):
-            raise ValidationError("invalid password")
+            raise ValueError(api_config.WEAK_PASSWORD)
         return p
 
 
@@ -64,3 +66,8 @@ class ScoreSchema(BaseModel):
 
 class WordDifficultySchema(BaseModel):
     difficulty: int = Field(min=8)
+
+
+class GameParamsSchema(BaseModel):
+    ROUND: List[List[str | int]]
+    DIFFICULTY: List[List[str | int]]

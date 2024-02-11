@@ -1,14 +1,18 @@
+import logging
 import os
 from functools import lru_cache
 
 import yaml
 from pydantic_settings import BaseSettings
 
+logger = logging.getLogger('main.ap_config')
+
+
 data = dict()
 path_current_directory = os.path.dirname(__file__)
 API_CONFIG_PATH = os.path.join(path_current_directory, 'api.yml')
 with open(API_CONFIG_PATH, 'r') as f:
-    print("loading api.yml")
+    logger.info("loading api.yml")
     data.update(yaml.safe_load(f))
 
 
@@ -30,6 +34,7 @@ class ApiConfig(BaseSettings):
     ADMIN_ONLY_MESSAGE: str = data['ADMIN_ONLY_MESSAGE']
     TOKEN_REVOKED_MESSAGE: str = data['TOKEN_REVOKED_MESSAGE']
     TOKEN_PREFIX: str = data['TOKEN_PREFIX']
+    WEAK_PASSWORD: str = data['WEAK_PASSWORD']
     PWD_REGEXP: str = data['PWD_REGEXP']
 
 
