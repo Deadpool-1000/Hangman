@@ -21,8 +21,6 @@ def initialize_database():
     init_db()
 
 
-# TODO add response validations on every route
-
 app.include_router(user_router)
 app.include_router(leaderboard_router)
 app.include_router(score_router)

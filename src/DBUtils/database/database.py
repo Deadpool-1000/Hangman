@@ -15,7 +15,7 @@ class Database:
         self.connection = None
 
     def connect(self):
-        logger.info(f"Connecting to {queries_config.DBPATH}..........")
+        print(f"Connecting to {queries_config.DBPATH}..........")
         self.connection = sqlite3.connect(queries_config.DBPATH)
         self.connection.row_factory = sqlite3.Row
 

@@ -26,12 +26,6 @@ def init_db():
         cur = db.connection.cursor()
         create_tables(cur)
 
-        # admin-data
-        admin_id = shortuuid.ShortUUID().random(length=5)
-        pwd = hashlib.sha256(settings.admin_password.encode()).hexdigest()
-        cur.execute(queries_config.INSERT_INTO_AUTH, (admin_id, settings.admin_name, pwd, api_config.ADMIN))
-        cur.execute(queries_config.INSERT_INTO_PLAYERS, (admin_id, datetime.now()))
-
         game_configurations = [
             (1, 'ROUND', 'OPTION1', 1),
             (2, 'ROUND', 'OPTION2', 3),
@@ -42,6 +36,12 @@ def init_db():
         ]
         # default game configurations available
         cur.executemany(queries_config.INSERT_INTO_GAME_CONFIG, game_configurations)
+
+        # admin-data
+        admin_id = shortuuid.ShortUUID().random(length=5)
+        pwd = hashlib.sha256(settings.admin_password.encode()).hexdigest()
+        cur.execute(queries_config.INSERT_INTO_AUTH, (admin_id, settings.admin_name, pwd, api_config.ADMIN))
+        cur.execute(queries_config.INSERT_INTO_PLAYERS, (admin_id, datetime.now()))
 
     except sqlite3.IntegrityError:
         logger.info('Database already initialized. Re-initialization caused integrity error.')

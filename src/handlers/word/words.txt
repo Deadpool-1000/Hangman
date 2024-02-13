@@ -1,8 +1,7 @@
-euphemism|noun|A feeling of sadness usually for a long time.|http://www.dictionary.com/browse
-.com/browse/abate
+﻿abate|verb|to reduce in amount, degree, intensity, etc.; lessen; diminish|http://www.dictionary.com/browse/abate
 abbreviate|verb|to shorten (a word or phrase) by omitting letters, substituting shorter forms, etc., so that the shortened form can represent the whole word or phrase, as ft. for foot, ab. for about, R.I. for Rhode Island, NW for Northwest, or Xn for Christian.|http://www.dictionary.com/browse/abbreviate
 abide|verb|to remain; continue; stay|http://www.dictionary.com/browse/abide
-abnormally|adjective|not normal, average, typical, or usual; deviating from a standard|http://www.dictionary.com/browse/abnormally
+﻿abnormally|adjective|not normal, average, typical, or usual; deviating from a standard|http://www.dictionary.com/browse/abnormally
 abort|verb|to bring forth a fetus from the uterus before the fetus is viable; miscarry.|http://www.dictionary.com/browse/abort
 abscond|verb|to depart in a sudden and secret manner, especially to avoid capture and legal prosecution|http://www.dictionary.com/browse/abscond
 absentmindedly|adjective|so lost in thought that one does not realize what one is doing, what is happening, etc.; preoccupied to the extent of being unaware of one's immediate surroundings.|http://www.dictionary.com/browse/absentmindedly
@@ -18,12 +17,12 @@ accidentally|adjective|happening by chance or accident; not planned; unexpected|
 accommodate|verb|to do a kindness or a favor to; oblige|http://www.dictionary.com/browse/accommodate
 accompany|verb|to go along or in company with; join in action|http://www.dictionary.com/browse/accompany
 accost|verb|to confront boldly|http://www.dictionary.com/browse/accost
-account|noun|An account of something|http://www.dictionary.com/browse/account
+account|noun|an oral or written description of particular events or situations; narrative|http://www.dictionary.com/browse/account
 accuse|verb|to charge with the fault, offense, or crime (usually followed by of)|http://www.dictionary.com/browse/accuse
 ache|verb|to have or suffer a continuous, dull pain|http://www.dictionary.com/browse/ache
 achiever|verb|to bring to a successful end; carry through; accomplish|http://www.dictionary.com/browse/achiever
 achieve|verb|to bring to a successful end; carry through; accomplish|http://www.dictionary.com/browse/achieve
-acidly|noun|Acidic feeling|http://www.dictionary.com/browse/acidly
+acidly|noun|Chemistry. a compound usually having a sour taste and capable of neutralizing alkalis and reddening blue litmus paper, containing hydrogen that can be replaced by a metal or an electropositive group to form a salt, or containing an atom that can accept a pair of electrons from a base. Acids are proton donors that yield hydronium ions in water solution, or electron-pair acceptors that combine with electron-pair donors or bases.|http://www.dictionary.com/browse/acidly
 acknowledge|verb|to admit to be real or true; recognize the existence, truth, or fact of|http://www.dictionary.com/browse/acknowledge
 acoustics|noun|Physics. the branch of physics that deals with sound and sound waves.|http://www.dictionary.com/browse/acoustics
 acquiesce|verb|to assent tacitly; submit or comply silently or without protest; agree; consent|http://www.dictionary.com/browse/acquiesce
@@ -32,8 +31,10 @@ action|noun|the process or state of acting or of being active|http://www.diction
 activity|noun|the state or quality of being active|http://www.dictionary.com/browse/activity
 actor|noun|a person who acts in stage plays, motion pictures, television broadcasts, etc.|http://www.dictionary.com/browse/actor
 actually|adverb|as an actual or existing fact; really.|http://www.dictionary.com/browse/actually
+act|noun|anything done, being done, or to be done; deed; performance|http://www.dictionary.com/browse/act
+act|noun|anything done, being done, or to be done; deed; performance|http://www.dictionary.com/browse/act
 adapt|verb|to make suitable to requirements or conditions; adjust or modify fittingly|http://www.dictionary.com/browse/adapt
-addition|noun|To add something|http://www.dictionary.com/browse/addition
+addition|noun|the act or process of adding or uniting.|http://www.dictionary.com/browse/addition
 address|noun|a speech or written statement, usually formal, directed to a particular group of persons|http://www.dictionary.com/browse/address
 add|verb|to unite or join so as to increase the number, quantity, size, or importance|http://www.dictionary.com/browse/add
 adhere|verb|to stay attached; stick fast; cleave; cling (usually followed by to)|http://www.dictionary.com/browse/adhere
@@ -3721,8 +3722,10 @@ write|verb|to trace or form (characters, letters, words, etc.) on the surface of
 writhe|verb|to twist the body about, or squirm, as in pain, violent effort, etc.|http://www.dictionary.com/browse/writhe
 writing|noun|the act of a person or thing that writes.|http://www.dictionary.com/browse/writingwrongly|adjective|not in accordance with what is morally right or good|http://www.dictionary.com/browse/wrongly
 yawningly|adjective|being or standing wide open; gaping|http://www.dictionary.com/browse/yawningly
+yearly|adjective|pertaining to a year or to each year.|http://www.dictionary.com/browse/yearly
 yearningly|noun|deep longing, especially when accompanied by tenderness or sadness|http://www.dictionary.com/browse/yearningly
+yesterday|adverb|on the day preceding this day.|http://www.dictionary.com/browse/yesterday
 yieldingly|adjective|inclined to give in; submissive; compliant|http://www.dictionary.com/browse/yieldingly
 youthfully|adjective|characterized by youth; young.|http://www.dictionary.com/browse/youthfully
 zealously|adjective|full of, characterized by, or due to zeal; ardently active, devoted, or diligent.Synonyms|http://www.dictionary.com/browse/zealously
-euphemism|noun|an indirect word or expression that you use instead of a more direct one when you are talking about something that is unpleasant or embarrassing; the use of such expressions|http://www.dictionary.com/browse
+zestfully|adjective|full of zest.|http://www.dictionary.com/browse/zestfullyeuphemism|noun|an indirect word or expression that you use instead of a more direct one when you are talking about something that is unpleasant or embarrassing; the use of such expressions|http://www.dictionary.com/browse

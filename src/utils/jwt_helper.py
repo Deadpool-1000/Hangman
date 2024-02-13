@@ -40,6 +40,7 @@ def verify_token(token):
 
 
 def get_token(token: str = Depends(oauth2_scheme)):
+    print("token------------> ", token)
     if token is None:
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,

@@ -1,438 +1,1766 @@
 {
-  "info": {
-    "_postman_id": "aafb3af3-3af2-4c23-8390-ed63d4ffdf90",
-    "name": "hangman",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "_exporter_id": "32189842"
-  },
-  "item": [
-    {
-      "name": "user",
-      "item": [
-        {
-          "name": "register",
-          "request": {
-            "method": "POST",
-            "header": [],
-            "body": {
-              "mode": "raw",
-              "raw": "{\r\n    \"username\": \"my_deadpool\",\r\n    \"password\": \"Abcdef@2\"\r\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            },
-            "url": {
-              "raw": "{{baseUrl}}/signup",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "signup"
-              ]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "login",
-          "event": [
-            {
-              "listen": "test",
-              "script": {
-                "exec": [
-                  "pm.globals.set(\"token\", pm.response.json().access_token)\r",
-                  ""
-                ],
-                "type": "text/javascript"
-              }
-            }
-          ],
-          "request": {
-            "method": "POST",
-            "header": [],
-            "body": {
-              "mode": "urlencoded",
-              "urlencoded": [
-                {
-                  "key": "username",
-                  "value": "admin",
-                  "type": "text"
-                },
-                {
-                  "key": "password",
-                  "value": "Abcdef@2",
-                  "type": "text"
-                }
-              ]
-            },
-            "url": {
-              "raw": "{{baseUrl}}/login",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "login"
-              ]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "profile",
-          "request": {
-            "method": "GET",
-            "header": [
-              {
-                "key": "Authorization",
-                "value": "Bearer {{token}}",
-                "type": "text"
-              }
-            ],
-            "url": {
-              "raw": "{{baseUrl}}/users/me",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "users",
-                "me"
-              ]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "logout",
-          "request": {
-            "method": "POST",
-            "header": [
-              {
-                "key": "Authorization",
-                "value": "Bearer {{token}}",
-                "type": "text"
-              }
-            ],
-            "url": {
-              "raw": "{{baseUrl}}/logout",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "logout"
-              ]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "test_fast_api",
-          "request": {
-            "method": "POST",
-            "header": [],
-            "body": {
-              "mode": "raw",
-              "raw": "{\r\n    \"uname\": \"deadpool\",\r\n    \"password\": \"Abcdef@2\"\r\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            },
-            "url": {
-              "raw": "{{baseUrl}}/signup",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "signup"
-              ]
-            }
-          },
-          "response": []
-        }
-      ]
-    },
-    {
-      "name": "words",
-      "item": [
-        {
-          "name": "get random word",
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          },
-          "request": {
-            "method": "GET",
-            "header": [
-              {
-                "key": "Authorization",
-                "value": "Bearer {{token}}",
-                "type": "text"
-              }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": "{\r\n    \"difficulty\": 8\r\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            },
-            "url": {
-              "raw": "{{baseUrl}}/words/random_word",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "words",
-                "random_word"
-              ]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "add new word",
-          "request": {
-            "method": "POST",
-            "header": [
-              {
-                "key": "Authorization",
-                "value": "Bearer {{token}}",
-                "type": "text"
-              }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": "{\r\n    \"word\": \"euphemism\",\r\n    \"definition\": \"an indirect word or expression that you use instead of a more direct one when you are talking about something that is unpleasant or embarrassing; the use of such expressions\",\r\n    \"source\": \"https://languages.oup.com/google-dictionary-hi/\"\r\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            },
-            "url": {
-              "raw": "{{baseUrl}}/words",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "words"
-              ]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "update word definition",
-          "request": {
-            "method": "PUT",
-            "header": [
-              {
-                "key": "Authorization",
-                "value": "Bearer {{token}}",
-                "type": "text"
-              }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": "{\r\n    \"new_word\": \"euphemism\",\r\n    \"new_definition\": \"A feeling of sadness usually for a long time.\"\r\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            },
-            "url": {
-              "raw": "{{baseUrl}}/words",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "words"
-              ]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "delete word",
-          "request": {
-            "method": "DELETE",
-            "header": [
-              {
-                "key": "Authorization",
-                "value": "Bearer {{token}}",
-                "type": "text"
-              }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": "{\r\n    \"word\": \"euphemism\"\r\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            },
-            "url": {
-              "raw": "{{baseUrl}}/words",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "words"
-              ]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "get all words",
-          "request": {
-            "method": "GET",
-            "header": [
-              {
-                "key": "Authorization",
-                "value": "Bearer {{token}}",
-                "type": "text"
-              }
-            ],
-            "url": {
-              "raw": "{{baseUrl}}/words",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "words"
-              ]
-            }
-          },
-          "response": []
-        }
-      ]
-    },
-    {
-      "name": "score",
-      "item": [
-        {
-          "name": "update score",
-          "request": {
-            "method": "PUT",
-            "header": [
-              {
-                "key": "Authorization",
-                "value": "Bearer {{token}}",
-                "type": "text"
-              }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": "{\r\n    \"score\": 7,\r\n    \"total_games_played\": 1,\r\n    \"total_games_won\": 1\r\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            },
-            "url": {
-              "raw": "{{baseUrl}}/score",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "score"
-              ]
-            }
-          },
-          "response": []
-        }
-      ]
-    },
-    {
-      "name": "leaderboard",
-      "item": [
-        {
-          "name": "get leaderboard",
-          "request": {
-            "method": "GET",
-            "header": [
-              {
-                "key": "Authorization",
-                "value": "Bearer {{token}}",
-                "type": "text"
-              }
-            ],
-            "url": {
-              "raw": "{{baseUrl}}/leaderboard",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "leaderboard"
-              ]
-            }
-          },
-          "response": []
-        }
-      ]
-    },
-    {
-      "name": "game_parameters",
-      "item": [
-        {
-          "name": "get game parameters",
-          "request": {
-            "method": "GET",
-            "header": [
-              {
-                "key": "Authorization",
-                "value": "Bearer {{token}}",
-                "type": "text"
-              }
-            ],
-            "url": {
-              "raw": "{{baseUrl}}/game_parameters",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "game_parameters"
-              ]
-            }
-          },
-          "response": []
-        }
-      ]
-    }
-  ],
-  "event": [
-    {
-      "listen": "prerequest",
-      "script": {
-        "type": "text/javascript",
-        "exec": [
-          ""
-        ]
-      }
-    },
-    {
-      "listen": "test",
-      "script": {
-        "type": "text/javascript",
-        "exec": [
-          ""
-        ]
-      }
-    }
-  ],
-  "variable": [
-    {
-      "key": "baseUrl",
-      "value": "http://127.0.0.1:8000",
-      "type": "string"
-    }
-  ]
+	"info": {
+		"_postman_id": "aafb3af3-3af2-4c23-8390-ed63d4ffdf90",
+		"name": "hangman",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "32189842"
+	},
+	"item": [
+		{
+			"name": "happy path",
+			"item": [
+				{
+					"name": "admin",
+					"item": [
+						{
+							"name": "add new word",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test('status to be 201', function(){\r",
+											"    console.log(\"print status checl\")\r",
+											"    pm.expect(pm.response).to.have.status(201);\r",
+											"});\r",
+											"\r",
+											"\r",
+											"pm.test(\"response is an object\", function () {\r",
+											"     pm.expect(pm.response.json()).to.be.an('object');\r",
+											"});\r",
+											"\r",
+											"\r",
+											"const response = pm.response.json()\r",
+											"const createdSuccessMessage = \"Word created successfully.\"\r",
+											"\r",
+											"\r",
+											"pm.test('response is object', function () {\r",
+											"    pm.expect(response).to.be.an('object');\r",
+											"});\r",
+											"\r",
+											"\r",
+											"pm.test(\"response has correct message\", function(){\r",
+											"    pm.expect(response.message).to.eql(createdSuccessMessage);\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"word\": \"{{word}}\",\r\n    \"definition\": \"{{hint}}\",\r\n    \"source\": \"{{source}}\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/words",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"words"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "update word definition",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"\r",
+											"pm.test(\"response to have status 200\", function () {\r",
+											"    pm.expect(pm.response).to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"\r",
+											"pm.test(\"response contains message\", function () {\r",
+											"    pm.expect(pm.response.json()).to.be.an('object');\r",
+											"    pm.expect(pm.response.json()).to.haveOwnProperty('message')\r",
+											"});\r",
+											"\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"new_word\": \"{{word}}\",\r\n    \"new_definition\": \"A feeling of sadness usually for a long time.\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/words",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"words"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "get all words",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"const response = pm.response.json()\r",
+											"\r",
+											"\r",
+											"pm.test(\"response is an array\", function(){\r",
+											"    pm.expect(response).to.be.an(\"array\")\r",
+											"});\r",
+											"\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{token}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/words",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"words"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "delete word",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"response to have status 200\", function () {\r",
+											"    pm.expect(pm.response).to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"response contains message\", function () {\r",
+											"    pm.expect(pm.response.json()).to.be.an('object');\r",
+											"    pm.expect(pm.response.json()).to.haveOwnProperty('message')\r",
+											"});\r",
+											"\r",
+											"\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"word\": \"{{word}}\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/words",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"words"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "update game params",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"response contains message\", function () {\r",
+											"    pm.expect(pm.response.json()).to.be.an('object');\r",
+											"    pm.expect(pm.response.json()).to.haveOwnProperty('message')\r",
+											"});\r",
+											"\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"ROUND\": [\r\n        [\r\n            \"OPTION1\",\r\n            2\r\n        ],\r\n        [\r\n            \"OPTION2\",\r\n            3\r\n        ],\r\n        [\r\n            \"OPTION3\",\r\n            6\r\n        ]\r\n    ],\r\n    \"DIFFICULTY\": [\r\n        [\r\n            \"EASY\",\r\n            11\r\n        ],\r\n        [\r\n            \"MEDIUM\",\r\n            12\r\n        ],\r\n        [\r\n            \"HARD\",\r\n            13\r\n        ]\r\n    ]\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/game-params",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"game-params"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"pm.sendRequest({",
+									"    url: pm.collectionVariables.get('token-url'),",
+									"    method: 'POST',",
+									"    headers:{",
+									"        'Content-Type': 'application/x-www-form-urlencoded'",
+									"    },",
+									"    body: {",
+									"        mode: 'urlencoded',",
+									"        urlencoded : [",
+									"            { key: 'username', value: 'admin'},",
+									"            { key: 'password', value: 'Abcdef@2'},",
+									"        ]",
+									"  }",
+									"}, function(err, res){",
+									"    if (err) console.log(err)",
+									"    pm.collectionVariables.set('token',res.json().access_token)",
+									"})",
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						}
+					]
+				},
+				{
+					"name": "player",
+					"item": [
+						{
+							"name": "get random word",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test('status to be 200', function(){\r",
+											"    pm.expect(pm.response).to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"\r",
+											"pm.test(\"response is an object\", function () {\r",
+											"     pm.expect(pm.response.json()).to.be.an('object');\r",
+											"});\r",
+											"\r",
+											"\r",
+											"const response = pm.response.json()\r",
+											"\r",
+											"\r",
+											"pm.test('response is object', function () {\r",
+											"     pm.expect(response).to.be.an('object');\r",
+											"});\r",
+											"\r",
+											"\r",
+											"pm.test('response has word', function () {\r",
+											"    pm.expect(response).to.have.ownProperty('word');\r",
+											"    pm.expect(response).to.have.ownProperty('hint');\r",
+											"    pm.expect(response).to.have.ownProperty('id');\r",
+											"    pm.expect(response).to.have.ownProperty('part_of_speech');\r",
+											"\r",
+											"});\r",
+											"\r",
+											"\r",
+											"pm.test('response has hint for the word', function(){\r",
+											"    pm.expect(response).to.have.ownProperty('hint');\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"// Get the list of correct game params available and set the difficulty acordingly.\r",
+											"\r",
+											"token = pm.collectionVariables.get('token')\r",
+											"pm.sendRequest({\r",
+											"    url: pm.collectionVariables.get('params-url'),\r",
+											"    method: 'GET', \r",
+											"    header: {\r",
+											"        'Authorization': `Bearer ${token}`\r",
+											"    }\r",
+											"}, function(err, res){\r",
+											"    if (err) console.log(err)\r",
+											"    const params = res.json()\r",
+											"    const difficultyOption = params.DIFFICULTY[0][1]\r",
+											"    pm.collectionVariables.set('difficulty', difficultyOption);\r",
+											"})\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"difficulty\": {{difficulty}}\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/words/random_word",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"words",
+										"random_word"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "get leaderboard",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"\r",
+											"pm.test(\"response is an array\", function(){\r",
+											"    pm.expect(pm.response.json()).to.be.an('array');\r",
+											"});\r",
+											"\r",
+											"pm.test(\"response is not empty\", function(){\r",
+											"    pm.expect(pm.response.json()).to.not.be.empty;\r",
+											"})\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{token}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/leaderboard",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"leaderboard"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "get game parameters",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"\r",
+											"pm.test('response is an object', function(){\r",
+											"    pm.expect(pm.response).to.be.an('object');\r",
+											"});\r",
+											"\r",
+											"\r",
+											"const response = pm.response.json();\r",
+											"\r",
+											"pm.test('response has round and difficulty', function(){\r",
+											"    pm.expect(response).to.haveOwnProperty('ROUND');\r",
+											"    pm.expect(response).to.haveOwnProperty('DIFFICULTY');\r",
+											"\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{token}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/game-params",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"game-params"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "update score",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"response is an object\", function(){\r",
+											"    pm.expect(pm.response.json()).to.be.an('object');\r",
+											"});\r",
+											"\r",
+											"const response = pm.response.json()\r",
+											"const updateSuccessMessage = 'Score Updated Successfully.'\r",
+											"\r",
+											"pm.test(\"reponse has correct message\", function(){\r",
+											"    pm.expect(response.message).to.eql(updateSuccessMessage);\r",
+											"});\r",
+											"\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"score\": 7,\r\n    \"total_games_played\": 1,\r\n    \"total_games_won\": 1\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/score",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"score"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"pm.sendRequest({",
+									"    url: pm.collectionVariables.get('token-url'),",
+									"    method: 'POST',",
+									"    headers:{",
+									"        'Content-Type': 'application/x-www-form-urlencoded'",
+									"    },",
+									"    body: {",
+									"        mode: 'urlencoded',",
+									"        urlencoded : [",
+									"            { key: 'username', value: 'my_deadpool'},",
+									"            { key: 'password', value: 'Abcdef@2'},",
+									"        ]",
+									"  }",
+									"}, function(err, res){",
+									"    if (err) console.log(err)",
+									"    pm.collectionVariables.set('token',res.json().access_token)",
+									"})",
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						}
+					]
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "negative path",
+			"item": [
+				{
+					"name": "not-authenticated",
+					"item": [
+						{
+							"name": "no-jwt-token",
+							"item": [
+								{
+									"name": "profile-no-JWT-provided",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer {{token}}",
+												"type": "text",
+												"disabled": true
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/users/me",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"users",
+												"me"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "get random word with no token",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer {{token}}",
+												"type": "text",
+												"disabled": true
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"difficulty\": 8\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/words/random_word",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"words",
+												"random_word"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "update word definition without token",
+									"request": {
+										"method": "PUT",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer {{token}}",
+												"type": "text",
+												"disabled": true
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"new_word\": \"euphemism\",\r\n    \"new_definition\": \"A feeling of sadness usually for a long time.\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/words",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"words"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "logout-no-JWT-provided",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer {{token}}",
+												"type": "text",
+												"disabled": true
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/logout",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"logout"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "get game parameters",
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer {{token}}",
+												"type": "text",
+												"disabled": true
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/game-params",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"game-params"
+											]
+										},
+										"description": "This test verifies that response is unauthorized in case no JWT token is provided in Authorization header."
+									},
+									"response": []
+								},
+								{
+									"name": "get leaderboard",
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer {{token}}",
+												"type": "text",
+												"disabled": true
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/leaderboard",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"leaderboard"
+											]
+										},
+										"description": "This test verifies that response is unauthorized in case no JWT token is provided in Authorization header."
+									},
+									"response": []
+								},
+								{
+									"name": "update score-no-jwt",
+									"request": {
+										"method": "PUT",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer {{token}}",
+												"type": "text",
+												"disabled": true
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"score\": 7,\r\n    \"total_games_played\": 1,\r\n    \"total_games_won\": 1\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/score",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"score"
+											]
+										},
+										"description": "This test verifies that response is unauthorized in case no JWT token is provided in Authorization header."
+									},
+									"response": []
+								}
+							],
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"type": "text/javascript",
+										"exec": [
+											""
+										]
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"type": "text/javascript",
+										"exec": [
+											"const response = pm.response.json();",
+											"const jwtErrorMessage = \"No JWT Bearer token provided in Authorization header.\"",
+											"",
+											"",
+											"",
+											"pm.test('response is object', function(){",
+											"    pm.expect(response).to.be.a('object')",
+											"})",
+											"",
+											"",
+											"pm.test('message is correct', function(){",
+											"    pm.expect(response.message).to.eql(jwtErrorMessage)",
+											"})"
+										]
+									}
+								}
+							]
+						},
+						{
+							"name": "incorrect-credentials",
+							"item": [
+								{
+									"name": "login-incorrect-credentials",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "urlencoded",
+											"urlencoded": [
+												{
+													"key": "username",
+													"value": "admin",
+													"type": "text"
+												},
+												{
+													"key": "password",
+													"value": "Abcdef@",
+													"type": "text"
+												}
+											]
+										},
+										"url": {
+											"raw": "{{baseUrl}}/login",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"login"
+											]
+										}
+									},
+									"response": []
+								}
+							],
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"type": "text/javascript",
+										"exec": [
+											""
+										]
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"type": "text/javascript",
+										"exec": [
+											"const response = pm.response.json();",
+											"const confictMessage = \"Username or password Incorrect.\"",
+											"",
+											"",
+											"pm.test('response is object', function(){",
+											"    pm.expect(response).to.be.a('object')",
+											"})",
+											"",
+											"",
+											"pm.test('message is correct', function(){",
+											"    pm.expect(response.message).to.eql(confictMessage)",
+											"})"
+										]
+									}
+								}
+							]
+						}
+					],
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"pm.test('status to be 401', function(){",
+									"    pm.response.to.have.status(401)",
+									"})"
+								]
+							}
+						}
+					]
+				},
+				{
+					"name": "not-authorized",
+					"item": [
+						{
+							"name": "update word definition without admin",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"new_word\": \"euphemism\",\r\n    \"new_definition\": \"A feeling of sadness usually for a long time.\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/words",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"words"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "get all words-without-admin",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{token}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/words",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"words"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "add new word without-admin",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"word\": \"euphemism\",\r\n    \"definition\": \"an indirect word or expression that you use instead of a more direct one when you are talking about something that is unpleasant or embarrassing; the use of such expressions\",\r\n    \"source\": \"https://languages.oup.com/google-dictionary-hi/\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/words",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"words"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "delete word without-admin",
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"word\": \"euphemism\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/words",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"words"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"pm.sendRequest({",
+									"    url: pm.collectionVariables.get('token-url'),",
+									"    method: 'POST',",
+									"    headers:{",
+									"        'Content-Type': 'application/x-www-form-urlencoded'",
+									"    },",
+									"    body: {",
+									"        mode: 'urlencoded',",
+									"        urlencoded : [",
+									"            { key: 'username', value: 'my_deadpool'},",
+									"            { key: 'password', value: 'Abcdef@2'},",
+									"        ]",
+									"  }",
+									"}, function(err, res){",
+									"    if (err) console.log(err)",
+									"    pm.collectionVariables.set('token',res.json().access_token)",
+									"})"
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"pm.test('status to be 403', function(){",
+									"    pm.response.to.have.status(403)",
+									"})",
+									"",
+									"const response = pm.response.json();",
+									"const confictMessage = \"You cannot access this resource.\"",
+									"",
+									"",
+									"pm.test('response is object', function(){",
+									"    pm.expect(response).to.be.a('object')",
+									"})",
+									"",
+									"",
+									"pm.test('message is correct', function(){",
+									"    pm.expect(response.message).to.eql(confictMessage)",
+									"})"
+								]
+							}
+						}
+					]
+				},
+				{
+					"name": "conflict",
+					"item": [
+						{
+							"name": "register",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"username\": \"my_deadpool\",\r\n    \"password\": \"Abcdef@2\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/signup",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"signup"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"pm.test('status to be 409', function(){",
+									"    pm.response.to.have.status(409)",
+									"})",
+									"",
+									"const response = pm.response.json();",
+									"const confictMessage = \"Username taken.\"",
+									"",
+									"",
+									"pm.test('response is object', function(){",
+									"    pm.expect(response).to.be.a('object')",
+									"})",
+									"",
+									"",
+									"pm.test('message is correct', function(){",
+									"    pm.expect(response.message).to.eql(confictMessage)",
+									"})"
+								]
+							}
+						}
+					]
+				},
+				{
+					"name": "input-validation",
+					"item": [
+						{
+							"name": "register invalid-password",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"response status is 422\", function () {\r",
+											"    pm.response.to.have.status(422);\r",
+											"});\r",
+											"\r",
+											"\r",
+											"pm.test('response is an object', function(){\r",
+											"    pm.expect(pm.response).to.be.an('object');\r",
+											"});\r",
+											"\r",
+											"const response = pm.response.json();\r",
+											"const invalidPasswordMessage = 'invalid password'\r",
+											"\r",
+											"\r",
+											"pm.test('response has loc, message and type property', function(){\r",
+											"    response.detail.forEach(function(error){\r",
+											"        pm.expect(error).to.haveOwnProperty('loc');\r",
+											"        pm.expect(error).to.haveOwnProperty('message');\r",
+											"        pm.expect(error).to.haveOwnProperty('type');\r",
+											"    });\r",
+											"\r",
+											"});\r",
+											"\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"const username = pm.environment.replaceIn(\"{{$randomUserName}}\");\r",
+											"pm.collectionVariables.set('testUsername', 'postman'+username);\r",
+											"\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"username\": \"my9_deadpool\",\r\n    \"password\": \"1536378393036\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/signup",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"signup"
+									]
+								},
+								"description": "Test to verify invalid password response."
+							},
+							"response": []
+						},
+						{
+							"name": "update score invalid-data",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 422\", function () {\r",
+											"    pm.response.to.have.status(422);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"response is an object\", function(){\r",
+											"    pm.expect(pm.response.json()).to.be.an('object');\r",
+											"});\r",
+											"\r",
+											"const response = pm.response.json()\r",
+											"const invalidIntegerMessage = 'Input should be a valid integer, unable to parse string as an integer'\r",
+											"\r",
+											"pm.test(\"reponse has correct message\", function(){\r",
+											"    pm.expect(response.detail[0].message).to.eql(invalidIntegerMessage);\r",
+											"});\r",
+											"\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"score\": \"4e\",\r\n    \"total_games_played\": \"9\",\r\n    \"total_games_won\": \"6\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/score",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"score"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "authentication",
+			"item": [
+				{
+					"name": "register",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"response status is 201\", () => pm.response.to.have.status(201));\r",
+									"\r",
+									"\r",
+									"pm.test('response is an object', function(){\r",
+									"    pm.expect(pm.response).to.be.an('object');\r",
+									"});\r",
+									"\r",
+									"const response = pm.response.json();\r",
+									"const signupSuccessMessage = 'Signup Successful.'\r",
+									"\r",
+									"\r",
+									"pm.test('response message is correct', function(){\r",
+									"    pm.expect(response.message).to.eql(signupSuccessMessage);\r",
+									"});\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"// Make payload from script\r",
+									"const username = pm.environment.replaceIn(\"{{$randomUserName}}\");\r",
+									"const testUsername = 'postman' + username;\r",
+									"const testPassword = 'Abcdef@2';\r",
+									"pm.collectionVariables.set('testUsername', testUsername);\r",
+									"pm.collectionVariables.set('testPassword', testPassword);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"{{testUsername}}\",\r\n    \"password\": \"{{testPassword}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/signup",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"signup"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test('response is an object', function(){\r",
+									"    pm.expect(pm.response.json()).to.be.an('object');\r",
+									"});\r",
+									"\r",
+									"\r",
+									"const response = pm.response.json()\r",
+									"\r",
+									"\r",
+									"pm.test('response has access-token', function(){\r",
+									"    pm.expect(response).to.haveOwnProperty('access_token');\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.collectionVariables.set(\"token\", pm.response.json().access_token);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "username",
+									"value": "{{testUsername}}",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "{{testPassword}}",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{baseUrl}}/login",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "profile",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test('response is an object', function(){\r",
+									"    pm.expect(pm.response).to.be.an('object');\r",
+									"});\r",
+									"\r",
+									"\r",
+									"const response = pm.response.json();\r",
+									"\r",
+									"pm.test('response has uname', function(){\r",
+									"    pm.expect(response).to.haveOwnProperty('uname');\r",
+									"});\r",
+									"\r",
+									"pm.test('response has high score', function(){\r",
+									"    pm.expect(response).to.haveOwnProperty('high_score');\r",
+									"});\r",
+									"\r",
+									"pm.test('response has total game', function(){\r",
+									"    pm.expect(response).to.haveOwnProperty('total_game');\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/users/me",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"users",
+								"me"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "logout",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test('response is an object', function(){\r",
+									"    pm.expect(pm.response.json()).to.be.an('object');\r",
+									"});\r",
+									"\r",
+									"\r",
+									"const response = pm.response.json();\r",
+									"const logoutMessage = \"Logout Successful.\"\r",
+									"\r",
+									"\r",
+									"pm.test('response has correct message', function(){\r",
+									"    pm.expect(response.message).to.eql(logoutMessage);\r",
+									"});\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/logout",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"logout"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "Contains authentication requests"
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "http://127.0.0.1:8000",
+			"type": "string"
+		},
+		{
+			"key": "token-url",
+			"value": "http://127.0.0.1:8000/login",
+			"type": "string"
+		},
+		{
+			"key": "token",
+			"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJVTGtKQlciLCJyb2xlIjoicGxheWVyIiwianRpIjoiand0UUZKaHciLCJpYXQiOjE3MDc3OTkzNTgsImV4cCI6MTcwNzgwMDU1OH0.KjAuxNaTovEooQ-q7KgxTeCE3_HO3YEuEEEjhHWtl60"
+		},
+		{
+			"key": "word",
+			"value": "euphemism",
+			"type": "string"
+		},
+		{
+			"key": "hint",
+			"value": "an indirect word or expression that you use instead of a more direct one when you are talking about something that is unpleasant or embarrassing; the use of such expressions",
+			"type": "string"
+		},
+		{
+			"key": "source",
+			"value": "http://www.dictionary.com/browse",
+			"type": "string"
+		},
+		{
+			"key": "testUsername",
+			"value": "postmanModesta.Streich48",
+			"type": "string"
+		},
+		{
+			"key": "testPassword",
+			"value": "Abcdef@2",
+			"type": "string"
+		},
+		{
+			"key": "params-url",
+			"value": "http://127.0.0.1:8000/game-params",
+			"type": "string"
+		},
+		{
+			"key": "difficulty",
+			"value": 11
+		},
+		{
+			"key": "signupData",
+			"value": "{\"username\":\"postmanMina25\",\"password\":\"Abcdef@2\"}"
+		}
+	]
 }
